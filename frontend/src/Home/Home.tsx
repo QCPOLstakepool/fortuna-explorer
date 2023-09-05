@@ -29,11 +29,15 @@ function Home(): JSX.Element {
                     <table className="table">
                         <tr>
                             <td className="label">{t('Epoch')}</td>
-                            <td className="value">{latestBlock?.block_no / 2016}</td>
+                            <td className="value">{(latestBlock?.block_no / 2016).toFixed(0)}</td>
                         </tr>
                         <tr>
                             <td className="label">{t('Block')}</td>
                             <td className="value">{latestBlock?.block_no}</td>
+                        </tr>
+                        <tr>
+                            <td className="label">{t('Time')}</td>
+                            <td className="value">{new Date(latestBlock?.current_posix_time).toLocaleString()}</td>
                         </tr>
                         <tr>
                             <td className="label">{t('NextEpochIn')}</td>
@@ -42,21 +46,21 @@ function Home(): JSX.Element {
                                 <div className="p-0">---</div>
                             </td>
                         </tr>
-                        <tr>
-                            <td className="label">{t('Hash')}</td>
-                            <td className="value">{latestBlock?.hash}</td>
-                        </tr>
                     </table>
                 </div>
                 <div className="col-6">
                     <table className="table">
                         <tr>
-                            <td className="label">{t('Leading Zeroes')}</td>
+                            <td className="label">{t('LeadingZeroes')}</td>
                             <td className="value">{latestBlock?.leading_zero}</td>
                         </tr>
                         <tr>
                             <td className="label">{t('Difficulty')}</td>
                             <td className="value">{latestBlock?.difficulty}</td>
+                        </tr>
+                        <tr>
+                            <td className="label">{t('Hash')}</td>
+                            <td className="value">{latestBlock?.hash}</td>
                         </tr>
                         <tr>
                             <td className="label">{t('AverageBlockTimeEpoch')}</td>
@@ -74,12 +78,12 @@ function Home(): JSX.Element {
             <table className="table">
                 <thead>
                     <tr>
-                        <th>Epoch</th>
-                        <th>Block</th>
-                        <th>Hash</th>
-                        <th>Leading Zeroes</th>
-                        <th>Difficulty</th>
-                        <th>Time</th>
+                        <th>{t('Epoch')}</th>
+                        <th>{t('Block')}</th>
+                        <th>{t('LeadingZeroes')}</th>
+                        <th>{t('Difficulty')}</th>
+                        <th>{t('Hash')}</th>
+                        <th>{t('Time')}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -87,9 +91,9 @@ function Home(): JSX.Element {
                     recentBlocks.map((block: FortunaBlock) => <tr key={block.block_no}>
                         <td>{(block.block_no / 2016).toFixed(0)}</td>
                         <td>{block.block_no}</td>
-                        <td>{block.hash}</td>
                         <td>{block.leading_zero}</td>
                         <td>{block.difficulty}</td>
+                        <td>{block.hash}</td>
                         <td>{new Date(block.current_posix_time).toLocaleString()}</td>
                     </tr>)
                 }
