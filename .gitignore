@@ -2,3 +2,4 @@ backend/config.json
 backend/venv
 
 frontend/node_modules
+/.idea
