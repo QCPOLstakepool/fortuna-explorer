@@ -37,6 +37,7 @@
   "scripts": {
     "start": "craco start",
     "build": "craco build",
+    "build:apache": "craco build && cp apache.htaccess /build/.htaccess",
     "buildwin": "craco build",
     "test": "craco test",
     "eject": "craco eject"
