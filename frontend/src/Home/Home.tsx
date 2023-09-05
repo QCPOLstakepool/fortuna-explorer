@@ -60,7 +60,7 @@ function Home(): JSX.Element {
                         </tr>
                         <tr>
                             <td className="label">{t('Hash')}</td>
-                            <td className="value">{latestBlock?.hash}</td>
+                            <td className="value">{latestBlock?.hash.substring(0, 32)}<br/>{latestBlock?.hash.substring(32, 64)}</td>
                         </tr>
                         <tr>
                             <td className="label">{t('AverageBlockTimeEpoch')}</td>
