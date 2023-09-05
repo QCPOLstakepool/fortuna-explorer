@@ -85,7 +85,7 @@ function Home(): JSX.Element {
                 <tbody>
                 {
                     recentBlocks.map((block: FortunaBlock) => <tr key={block.block_no}>
-                        <td>{block.block_no / 2016}</td>
+                        <td>{(block.block_no / 2016).toFixed(0)}</td>
                         <td>{block.block_no}</td>
                         <td>{block.hash}</td>
                         <td>{block.leading_zero}</td>
