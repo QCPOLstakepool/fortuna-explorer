@@ -1,0 +1,10 @@
+{
+  "block_number_value": "Block number: {{block_number}}",
+  "blocks_left_until_next_epoch_value": "Blocks left until next epoch: {{blocks}}",
+  "hash": "Hash: {{hash}}",
+  "leading_zero_value": "Leading Zero(es): {{leading_zero}}",
+  "difficulty_value": "Difficulty: {{difficulty}}",
+  "epoch_time_value": "Epoch Time: {{epoch_time}}",
+  "current_posix_time_value": "Current Posix Time: {{current_posix_time}}",
+  "datum_value": "Datum: {{datum}}"
+}

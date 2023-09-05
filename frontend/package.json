@@ -1,0 +1,62 @@
+{
+  "name": "fortuna-explorer",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@cardano-foundation/cardano-connect-with-wallet": "^0.1.44",
+    "@craco/craco": "^7.0.0-alpha.9",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
+    "@types/jest": "^27.5.2",
+    "@types/node": "^16.11.64",
+    "@types/react": "^18.0.21",
+    "@types/react-dom": "^18.0.6",
+    "bootstrap": "^5.2.2",
+    "i18next": "^21.9.2",
+    "i18next-browser-languagedetector": "^6.1.5",
+    "i18next-http-backend": "^1.4.4",
+    "jquery": "^3.5.1",
+    "lucid-cardano": "^0.6.9",
+    "next": "^13.0.0",
+    "react": "^18.2.0",
+    "react-bootstrap": "^2.5.0",
+    "react-dom": "^18.2.0",
+    "react-helmet": "^6.1.0",
+    "react-i18next": "^11.18.6",
+    "react-router-dom": "^6.4.1",
+    "react-scripts": "5.0.1",
+    "recharts": "^2.1.14",
+    "sass": "^1.55.0",
+    "typescript": "^4.8.4",
+    "web-vitals": "^2.1.4"
+  },
+  "devDependencies": {
+    "@types/jquery": "^3.5.14"
+  },
+  "scripts": {
+    "start": "craco start",
+    "build": "craco build && rm -f build/live_data.json build/pool_history.json build/stakers_data.json",
+    "buildwin": "craco build && del build\\live_data.json && del build\\pool_history.json && del build\\stakers_data.json",
+    "test": "craco test",
+    "eject": "craco eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}

@@ -1,0 +1,65 @@
+@import "~bootstrap/scss/bootstrap";
+@import "variables";
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  height: 100%;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  monospace;
+}
+
+a {
+
+}
+
+div.content-box {
+  background: $box-background;
+  box-shadow: $box-shadow;
+  border-radius: $box-border-radius;
+  margin-left: 0;
+  margin-right: 0;
+  padding: 12px 20px;
+
+  .title {
+    font-family: 'IBM Plex Sans', serif;
+    font-weight: bold;
+    font-size: 16px;
+    text-align: left;
+  }
+
+  .content {
+    font-family: 'IBM Plex Sans', serif;
+    text-align: left;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
+  @include media-breakpoint-up(sm) {
+    .title {
+      font-size: 12px;
+    }
+  }
+
+  @include media-breakpoint-up(lg) {
+    margin-left: 10px;
+    margin-right: 10px;
+    padding-top: 24px;
+    padding-bottom: 24px;
+
+    .title {
+      font-size: 16px;
+    }
+  }
+
+  @include media-breakpoint-up(xxl) {
+    .title {
+      font-size: 18px;
+    }
+  }
+}
