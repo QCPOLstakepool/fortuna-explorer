@@ -36,8 +36,8 @@
   },
   "scripts": {
     "start": "craco start",
-    "build": "craco build && rm -f build/live_data.json build/pool_history.json build/stakers_data.json",
-    "buildwin": "craco build && del build\\live_data.json && del build\\pool_history.json && del build\\stakers_data.json",
+    "build": "craco build",
+    "buildwin": "craco build",
     "test": "craco test",
     "eject": "craco eject"
   },
