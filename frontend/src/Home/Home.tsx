@@ -26,7 +26,7 @@ function Home(): JSX.Element {
 
             <div className="current-epoch d-flex flex-column flex-lg-row justify-content-between">
                 <div className="current-epoch-stats narrow-label d-flex flex-column flex-grow-1">
-                    {getCurrentEpochStat(t('Number'), Math.floor(latestBlock?.block_no / 2016))}
+                    {getCurrentEpochStat(t('Number'), getEpochNumber(latestBlock?.block_no))}
                     {getCurrentEpochStat(t('Progress'), `${(((latestBlock?.block_no % 2016) / 2016) * 100).toFixed(2)}%`)}
                     {getCurrentEpochStat(t('NextEpochIn'), <>
                         <div className="p-0">{t('ValueBlocks', {blocks: 2016 - ((latestBlock?.block_no ?? 0) % 2016)})}</div>
@@ -59,7 +59,7 @@ function Home(): JSX.Element {
                 <tbody>
                 {
                     recentBlocks.map((block: FortunaBlock) => <tr key={block.block_no}>
-                        <td>{Math.floor(block.block_no / 2016)}</td>
+                        <td>{getEpochNumber(block.block_no)}</td>
                         <td>{block.block_no}</td>
                         <td>{block.leading_zero}</td>
                         <td>{block.difficulty}</td>
@@ -71,6 +71,10 @@ function Home(): JSX.Element {
             </table>
         </div>
     </div>;
+
+    function getEpochNumber(block: number): number {
+        return Math.floor((block - 1) / 2016);
+    }
 
     function getCurrentEpochStat(label: string, value: JSX.Element | string | number): JSX.Element {
        return <div className="current-epoch-stat d-flex">
