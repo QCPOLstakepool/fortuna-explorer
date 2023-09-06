@@ -1,5 +1,4 @@
 export default interface FortunaBlock {
-    datum: string;
     block_no: number;
     hash: string;
     leading_zero: number;

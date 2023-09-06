@@ -69,7 +69,7 @@ class DbsyncCardanoAdapter(CardanoAdapterInterface):
             limit %s 
             offset %s""".format(
                 "desc" if desc else "asc"
-            ), (size, (page - 1) * size))
+            ), (size + 1, (page - 1) * size))
 
             rows = cursor.fetchall()
 
@@ -77,6 +77,22 @@ class DbsyncCardanoAdapter(CardanoAdapterInterface):
 
             for row in rows:
                 fortuna_blocks.append(FortunaBlock(row[2]))
+
+            # The leading_zero and difficulty in the DATUM is for the NEXT block
+            if desc:
+                for i in range(0, len(fortuna_blocks) - 2, 1):
+                    fortuna_blocks[i].leading_zero = fortuna_blocks[i + 1].leading_zero
+                    fortuna_blocks[i].difficulty = fortuna_blocks[i + 1].difficulty
+
+                if len(fortuna_blocks) > size:
+                    fortuna_blocks = fortuna_blocks[:-1]
+            else:
+                for i in range(len(fortuna_blocks) - 1, -1, -1):
+                    fortuna_blocks[i].leading_zero = fortuna_blocks[i - 1].leading_zero
+                    fortuna_blocks[i].difficulty = fortuna_blocks[i - 1].difficulty
+
+                if len(fortuna_blocks) > size:
+                    fortuna_blocks = fortuna_blocks[1:]
 
             return fortuna_blocks
         finally:
