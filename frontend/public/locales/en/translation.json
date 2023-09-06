@@ -1,6 +1,10 @@
 {
-  "LatestBlockInformation": "Latest Block Information",
+  "CurrentEpoch": "Current Epoch",
+  "Number": "Number",
   "Epoch": "Epoch",
+  "Progress": "Progress",
+  "LatestBlock": "Latest Block",
+  "LatestBlockTime": "Latest Block Time",
   "Block": "Block",
   "NextEpochIn": "Next Epoch In",
   "Hash": "Hash",
@@ -10,5 +14,6 @@
   "AverageBlockTimeLast100Blocks": "Average Block Time (Last 100 Blocks)",
   "ValueBlocks": "{{blocks}} blocks",
   "RecentBlocks": "Recent Blocks",
-  "Time": "Time"
+  "Time": "Time",
+  "EstimatedHashPower": "Estimated Hash Power"
 }

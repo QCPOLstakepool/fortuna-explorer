@@ -18,63 +18,33 @@ function Home(): JSX.Element {
         fetch('api/blocks').then(response => response.json()).then(response => {
             setRecentBlocks(response);
         });
-    }, [])
+    }, []);
 
     return <div className="Home">
         <div className="container mt-4">
-            <h1>{t('LatestBlockInformation')}</h1>
+            <h1>{t('CurrentEpoch')}</h1>
 
-            <div className="latest-block row">
-                <div className="col-6">
-                    <table className="table">
-                        <tr>
-                            <td className="label">{t('Epoch')}</td>
-                            <td className="value">{(latestBlock?.block_no / 2016).toFixed(0)}</td>
-                        </tr>
-                        <tr>
-                            <td className="label">{t('Block')}</td>
-                            <td className="value">{latestBlock?.block_no}</td>
-                        </tr>
-                        <tr>
-                            <td className="label">{t('Time')}</td>
-                            <td className="value">{new Date(latestBlock?.current_posix_time).toLocaleString()}</td>
-                        </tr>
-                        <tr>
-                            <td className="label">{t('NextEpochIn')}</td>
-                            <td className="value">
-                                <div className="p-0">{t('ValueBlocks', {blocks: 2016 - ((latestBlock?.block_no ?? 0) % 2016)})}</div>
-                                <div className="p-0">---</div>
-                            </td>
-                        </tr>
-                    </table>
+            <div className="current-epoch d-flex flex-column flex-lg-row justify-content-between">
+                <div className="current-epoch-stats narrow-label d-flex flex-column flex-grow-1">
+                    {getCurrentEpochStat(t('Number'), Math.floor(latestBlock?.block_no / 2016))}
+                    {getCurrentEpochStat(t('Progress'), `${(((latestBlock?.block_no % 2016) / 2016) * 100).toFixed(2)}%`)}
+                    {getCurrentEpochStat(t('NextEpochIn'), <>
+                        <div className="p-0">{t('ValueBlocks', {blocks: 2016 - ((latestBlock?.block_no ?? 0) % 2016)})}</div>
+                        <div className="p-0">---</div>
+                    </>)}
+                    {getCurrentEpochStat(t('LatestBlock'), latestBlock?.block_no)}
+                    {getCurrentEpochStat(t('LatestBlockTime'), new Date(latestBlock?.current_posix_time).toLocaleString())}
                 </div>
-                <div className="col-6">
-                    <table className="table">
-                        <tr>
-                            <td className="label">{t('LeadingZeroes')}</td>
-                            <td className="value">{latestBlock?.leading_zero}</td>
-                        </tr>
-                        <tr>
-                            <td className="label">{t('Difficulty')}</td>
-                            <td className="value">{latestBlock?.difficulty}</td>
-                        </tr>
-                        <tr>
-                            <td className="label">{t('Hash')}</td>
-                            <td className="value">{latestBlock?.hash.substring(0, 32)}<br/>{latestBlock?.hash.substring(32, 64)}</td>
-                        </tr>
-                        <tr>
-                            <td className="label">{t('AverageBlockTimeEpoch')}</td>
-                            <td className="value">---</td>
-                        </tr>
-                        <tr>
-                            <td className="label">{t('AverageBlockTimeLast100Blocks')}</td>
-                            <td className="value">---</td>
-                        </tr>
-                    </table>
+                <div className="current-epoch-stats wide-label d-flex flex-column flex-grow-1">
+                    {getCurrentEpochStat(t('LeadingZeroes'), latestBlock?.leading_zero)}
+                    {getCurrentEpochStat(t('Difficulty'), latestBlock?.difficulty)}
+                    {getCurrentEpochStat(t('AverageBlockTimeEpoch'), "---")}
+                    {getCurrentEpochStat(t('AverageBlockTimeLast100Blocks'), "---")}
+                    {getCurrentEpochStat(t('EstimatedHashPower'), "---")}
                 </div>
             </div>
 
-            <h1>{t('RecentBlocks')}</h1>
+            <h1 className="mt-4">{t('RecentBlocks')}</h1>
             <table className="table">
                 <thead>
                     <tr>
@@ -82,25 +52,32 @@ function Home(): JSX.Element {
                         <th>{t('Block')}</th>
                         <th>{t('LeadingZeroes')}</th>
                         <th>{t('Difficulty')}</th>
-                        <th>{t('Hash')}</th>
+                        <th className="d-none d-xxl-table-cell">{t('Hash')}</th>
                         <th>{t('Time')}</th>
                     </tr>
                 </thead>
                 <tbody>
                 {
                     recentBlocks.map((block: FortunaBlock) => <tr key={block.block_no}>
-                        <td>{(block.block_no / 2016).toFixed(0)}</td>
+                        <td>{Math.floor(block.block_no / 2016)}</td>
                         <td>{block.block_no}</td>
                         <td>{block.leading_zero}</td>
                         <td>{block.difficulty}</td>
-                        <td>{block.hash}</td>
+                        <td className="d-none d-xxl-table-cell">{block.hash}</td>
                         <td>{new Date(block.current_posix_time).toLocaleString()}</td>
                     </tr>)
                 }
                 </tbody>
             </table>
         </div>
-    </div>
+    </div>;
+
+    function getCurrentEpochStat(label: string, value: JSX.Element | string | number): JSX.Element {
+       return <div className="current-epoch-stat d-flex">
+            <div className="label">{label}</div>
+            <div className="value">{value}</div>
+        </div>
+    }
 }
 
 export default Home;

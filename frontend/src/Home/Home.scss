@@ -1,11 +1,53 @@
-.Home {
-  .latest-block {
-    .label {
-      vertical-align: top;
-    }
+@import "~bootstrap/scss/bootstrap";
 
-    .value {
-      vertical-align: top;
+.Home {
+  .current-epoch {
+    .current-epoch-stats {
+      .current-epoch-stat {
+        .label {
+          font-weight: bold;
+        }
+      }
+
+      &.wide-label {
+        .label {
+          width: 60%;
+        }
+
+        .value {
+          width: 40%;
+        }
+
+        @include media-breakpoint-up(lg) {
+          .label {
+            width: 78%;
+          }
+
+          .value {
+            width: 22%;
+          }
+        }
+      }
+
+      &.narrow-label {
+        .label {
+          width: 60%;
+        }
+
+        .value {
+          width: 40%;
+        }
+
+        @include media-breakpoint-up(lg) {
+          .label {
+            width: 40%;
+          }
+
+          .value {
+            width: 60%;
+          }
+        }
+      }
     }
   }
 }
