@@ -27,9 +27,9 @@ function Home(): JSX.Element {
             <div className="current-epoch d-flex flex-column flex-lg-row justify-content-between">
                 <div className="current-epoch-stats narrow-label d-flex flex-column flex-grow-1">
                     {getCurrentEpochStat(t('Number'), getEpochNumber(latestBlock?.block_no))}
-                    {getCurrentEpochStat(t('Progress'), `${(((latestBlock?.block_no % 2016) / 2016) * 100).toFixed(2)}%`)}
+                    {getCurrentEpochStat(t('Progress'), `${((((latestBlock?.block_no - 1) % 2016) / 2016) * 100).toFixed(2)}%`)}
                     {getCurrentEpochStat(t('NextEpochIn'), <>
-                        <div className="p-0">{t('ValueBlocks', {blocks: 2016 - ((latestBlock?.block_no ?? 0) % 2016)})}</div>
+                        <div className="p-0">{t('ValueBlocks', {blocks: 2016 - (((latestBlock?.block_no - 1) ?? 0) % 2016)})}</div>
                         <div className="p-0">---</div>
                     </>)}
                     {getCurrentEpochStat(t('LatestBlock'), latestBlock?.block_no)}
