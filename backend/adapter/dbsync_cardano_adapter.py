@@ -13,7 +13,7 @@ class DbsyncCardanoAdapter(CardanoAdapterInterface):
         self.password = password
         self.database = database
         
-    def get_latest_block(self):
+    def get_next_block(self):
         connection = self._open_connection()
 
         try:

@@ -10,11 +10,11 @@ with open("config.json") as config_file:
 app = Flask(__name__)
 
 
-@app.route("/api/blocks/latest")
+@app.route("/api/blocks/next")
 def get_latest_block():
     cardano_adapter = DbsyncCardanoAdapter(config["dbsync"]["host"], config["dbsync"]["port"], config["dbsync"]["user"], config["dbsync"]["password"], config["dbsync"]["database"])
 
-    return jsonify(cardano_adapter.get_latest_block().__dict__)
+    return jsonify(cardano_adapter.get_next_block().__dict__)
 
 
 @app.route("/api/blocks")
