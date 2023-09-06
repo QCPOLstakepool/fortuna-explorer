@@ -73,7 +73,7 @@ function Home(): JSX.Element {
     </div>;
 
     function getEpochNumber(block: number): number {
-        return Math.floor((block - 1) / 2016);
+        return Math.floor(block / 2016) + 1;
     }
 
     function getCurrentEpochStat(label: string, value: JSX.Element | string | number): JSX.Element {
