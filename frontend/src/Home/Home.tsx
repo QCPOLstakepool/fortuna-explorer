@@ -59,7 +59,7 @@ function Home(): JSX.Element {
                 <tbody>
                 {
                     recentBlocks.map((block: FortunaBlock) => <tr key={block.block_no}>
-                        <td>{getEpochNumber(block.block_no)}</td>
+                        <td>{getEpochNumber(block.block_no - 1)}</td>
                         <td>{block.block_no}</td>
                         <td>{block.leading_zero}</td>
                         <td>{block.difficulty}</td>
