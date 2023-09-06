@@ -6,7 +6,7 @@ import {useTranslation} from "react-i18next";
 function Home(): JSX.Element {
     const {t} = useTranslation();
     const [latestBlock, setLatestBlock] = useState<FortunaBlock>({
-        datum: "", block_no: 0, hash: "00000000000000000000000000000000", leading_zero: 0, difficulty: 0, epoch_time: 0, current_posix_time: 0
+        block_no: 0, hash: "00000000000000000000000000000000", leading_zero: 0, difficulty: 0, epoch_time: 0, current_posix_time: 0
     });
     const [recentBlocks, setRecentBlocks] = useState<FortunaBlock[]>([]);
 
