@@ -1,7 +1,7 @@
 backend/config.json
 backend/venv
 
-oura-sinks/tuna-policy-sink/config.json
+oura-sinks/config.json
 
 frontend/node_modules
 /.idea
