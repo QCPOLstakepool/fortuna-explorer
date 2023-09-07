@@ -9,7 +9,7 @@ with open("config.json") as config_file:
 app = Flask(__name__)
 
 
-@app.route("/api/tx", methods = ["POST"])
+@app.route("/api/block", methods=["POST"])
 def post_tx():
     connection = None
     data = request.json
