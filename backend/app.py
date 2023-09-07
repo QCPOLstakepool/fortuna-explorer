@@ -1,8 +1,8 @@
 import json
 
 from flask import Flask, jsonify, request
-from adapter.dbsync_cardano_adapter import DbsyncCardanoAdapter
-
+from repository.block_repository import BlockRepository
+from repository.epoch_repository import EpochRepository
 
 with open("config.json") as config_file:
     config = json.load(config_file)
@@ -10,11 +10,11 @@ with open("config.json") as config_file:
 app = Flask(__name__)
 
 
-@app.route("/api/blocks/next")
-def get_latest_block():
-    cardano_adapter = DbsyncCardanoAdapter(config["dbsync"]["host"], config["dbsync"]["port"], config["dbsync"]["user"], config["dbsync"]["password"], config["dbsync"]["database"])
+@app.route("/api/epochs/current")
+def get_current_epoch():
+    epoch_repository = EpochRepository(config["sqlite"])
 
-    return jsonify(cardano_adapter.get_next_block().__dict__)
+    return jsonify(epoch_repository.get_current_epoch().__dict__)
 
 
 @app.route("/api/blocks")
@@ -27,6 +27,6 @@ def get_blocks():
     if (order != "desc" and order != "asc") or not size.isnumeric() or 0 >= int(size) > 20 or not page.isnumeric() or 0 >= int(page) or not from_block.isnumeric():
         return "Bad request", 400
 
-    cardano_adapter = DbsyncCardanoAdapter(config["dbsync"]["host"], config["dbsync"]["port"], config["dbsync"]["user"], config["dbsync"]["password"], config["dbsync"]["database"])
+    block_repository = BlockRepository(config["sqlite"])
 
-    return jsonify([fortuna_block.__dict__ for fortuna_block in cardano_adapter.get_blocks(int(page), int(size), int(from_block), order == "desc")])
+    return jsonify([fortuna_block.__dict__ for fortuna_block in block_repository.get_blocks(int(page), int(size), int(from_block), order == "desc")])

@@ -1,0 +1,173 @@
+{
+  "context": {
+    "block_hash": "78933954b264ed398d2d8c609b2fdcc6965fe61ca0a8d2209eb3e6039fa759d7",
+    "block_number": 9210130,
+    "slot": 101511992,
+    "timestamp": 1693078283,
+    "tx_idx": 2,
+    "tx_hash": "7d7639904fa8ed2dc2c29050bfc4ec68634de7ff544053a88c8b657b072907a3",
+    "input_idx": null,
+    "output_idx": null,
+    "output_address": null,
+    "certificate_idx": null
+  },
+  "transaction": {
+    "hash": "7d7639904fa8ed2dc2c29050bfc4ec68634de7ff544053a88c8b657b072907a3",
+    "fee": 399359,
+    "ttl": 101512090,
+    "validity_interval_start": 101511910,
+    "network_id": null,
+    "input_count": 2,
+    "collateral_input_count": 1,
+    "has_collateral_output": true,
+    "output_count": 3,
+    "mint_count": 1,
+    "total_output": 32340705,
+    "metadata": null,
+    "inputs": [
+      {
+        "tx_id": "f3d2e04e0391f7c95a1aeb6b3f35e33ffd6a060ac36a9ecb64af7f06ae0aa907",
+        "index": 0
+      },
+      {
+        "tx_id": "f3d2e04e0391f7c95a1aeb6b3f35e33ffd6a060ac36a9ecb64af7f06ae0aa907",
+        "index": 1
+      }
+    ],
+    "outputs": [
+      {
+        "address": "addr1wynelppvx0hdjp2tnc78pnt28veznqjecf9h3wy4edqajxsg7hwsc",
+        "amount": 1629180,
+        "assets": [
+          {
+            "policy": "279f842c33eed9054b9e3c70cd6a3b32298259c24b78b895cb41d91a",
+            "asset": "6c6f72642074756e61",
+            "asset_ascii": "lord tuna",
+            "amount": 1
+          }
+        ],
+        "datum_hash": "3a248f2e588ed2d21735cb59280e78cc691d9d741810c7d423fe9f718ef6da05",
+        "inline_datum": {
+          "datum_hash": "3a248f2e588ed2d21735cb59280e78cc691d9d741810c7d423fe9f718ef6da05",
+          "plutus_data": {
+            "constructor": 0,
+            "fields": [
+              {
+                "int": 1
+              },
+              {
+                "bytes": "0000023bf7bf1be07d7ae46e69ec7d22d5af2d29fb1df138d703ec470eb64740"
+              },
+              {
+                "int": 5
+              },
+              {
+                "int": 65535
+              },
+              {
+                "int": 252000
+              },
+              {
+                "int": 1693078291000
+              },
+              {
+                "int": 0
+              },
+              {
+                "list": [
+                  {
+                    "bytes": "0000023bf7bf1be07d7ae46e69ec7d22d5af2d29fb1df138d703ec470eb64740"
+                  },
+                  {
+                    "bytes": "0000023bf7bf1be07d7ae46e69ec7d22d5af2d29fb1df138d703ec470eb64740"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "address": "addr1qy0mrayspfvtxtejh3lua4q9psmsq9ws5tv32f65w6d99yk89njnfr982r03e59c0qfyme5mnyz0c99l7u8679nt7xxqa4dprc",
+        "amount": 1172320,
+        "assets": [
+          {
+            "policy": "279f842c33eed9054b9e3c70cd6a3b32298259c24b78b895cb41d91a",
+            "asset": "54554e41",
+            "asset_ascii": "TUNA",
+            "amount": 5000000000
+          }
+        ],
+        "datum_hash": null,
+        "inline_datum": null
+      },
+      {
+        "address": "addr1qy0mrayspfvtxtejh3lua4q9psmsq9ws5tv32f65w6d99yk89njnfr982r03e59c0qfyme5mnyz0c99l7u8679nt7xxqa4dprc",
+        "amount": 29539205,
+        "assets": [],
+        "datum_hash": null,
+        "inline_datum": null
+      }
+    ],
+    "collateral_inputs": [
+      {
+        "tx_id": "f3d2e04e0391f7c95a1aeb6b3f35e33ffd6a060ac36a9ecb64af7f06ae0aa907",
+        "index": 1
+      }
+    ],
+    "collateral_output": {
+      "address": "addr1qy0mrayspfvtxtejh3lua4q9psmsq9ws5tv32f65w6d99yk89njnfr982r03e59c0qfyme5mnyz0c99l7u8679nt7xxqa4dprc",
+      "amount": 30826475,
+      "assets": [],
+      "datum_hash": null,
+      "inline_datum": null
+    },
+    "mint": [
+      {
+        "policy": "279f842c33eed9054b9e3c70cd6a3b32298259c24b78b895cb41d91a",
+        "asset": "54554e41",
+        "quantity": 5000000000
+      }
+    ],
+    "vkey_witnesses": [
+      {
+        "vkey_hex": "b2f279c71c683862deccba2dbbdd4e0e59dd98535f71aa6dda7b5f0beb73f7b9",
+        "signature_hex": "a70aebdbaf631324c232abb6cfcfab669cc215db6a7c6adad05d440c5fbf52b4ac8af7bc0605112592be4dc724d266f4c8399e702f7af76f6bb46a3dc35e660e"
+      }
+    ],
+    "native_witnesses": [],
+    "plutus_witnesses": [],
+    "plutus_redeemers": [
+      {
+        "purpose": "spend",
+        "ex_units_mem": 306582,
+        "ex_units_steps": 147599892,
+        "input_idx": 0,
+        "plutus_data": {
+          "constructor": 1,
+          "fields": [
+            {
+              "bytes": "50757d0867a391511f23ad470f2fcc71"
+            }
+          ]
+        }
+      },
+      {
+        "purpose": "mint",
+        "ex_units_mem": 42003,
+        "ex_units_steps": 15844753,
+        "input_idx": 0,
+        "plutus_data": {
+          "constructor": 0,
+          "fields": []
+        }
+      }
+    ],
+    "plutus_data": [],
+    "withdrawals": null,
+    "size": 4819
+  },
+  "fingerprint": null,
+  "variant": "Transaction",
+  "timestamp": 1693078283000
+}
