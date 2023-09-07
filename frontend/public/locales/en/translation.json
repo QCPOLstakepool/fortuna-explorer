@@ -15,5 +15,6 @@
   "ValueBlocks": "{{blocks}} blocks",
   "RecentBlocks": "Recent Blocks",
   "Time": "Time",
-  "EstimatedHashPower": "Estimated Hash Power"
+  "EstimatedHashPower": "Estimated Hash Power",
+  "Miner": "Miner"
 }

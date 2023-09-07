@@ -5,4 +5,5 @@ export default interface FortunaBlock {
     difficulty: number;
     epoch_time: number;
     current_posix_time: number;
+    miner?: string;
 }

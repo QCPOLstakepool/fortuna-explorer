@@ -21,7 +21,7 @@ function Home(): JSX.Element {
     }, []);
 
     return <div className="Home">
-        <div className="container mt-4">
+        <div className="container-fluid mt-4">
             <h1>{t('CurrentEpoch')}</h1>
 
             <div className="current-epoch d-flex flex-column flex-lg-row justify-content-between">
@@ -52,6 +52,7 @@ function Home(): JSX.Element {
                         <th>{t('Difficulty')}</th>
                         <th className="d-none d-xxl-table-cell">{t('Hash')}</th>
                         <th>{t('Time')}</th>
+                        <th>{t('Miner')}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -61,8 +62,9 @@ function Home(): JSX.Element {
                         <td>{block.block_no}</td>
                         <td>{block.leading_zero}</td>
                         <td>{block.difficulty}</td>
-                        <td className="d-none d-xxl-table-cell">{block.hash}</td>
+                        <td className="d-none d-xxl-table-cell">{formatHash(block.hash, block.leading_zero)}</td>
                         <td>{new Date(block.current_posix_time).toLocaleString()}</td>
+                        <td>{`${block.miner?.substring(0, 6)}\u2026${block.miner?.substring(block.miner?.length - 6)}`}</td>
                     </tr>)
                 }
                 </tbody>
@@ -79,6 +81,12 @@ function Home(): JSX.Element {
             <div className="label">{label}</div>
             <div className="value">{value}</div>
         </div>
+    }
+
+    function formatHash(hash: string, leading_zero: number): JSX.Element {
+        return <>
+            0<sub>{leading_zero}</sub>{hash.substring(leading_zero)}
+        </>;
     }
 }
 
