@@ -36,7 +36,7 @@ if __name__ == "__main__":
             )
         """)
 
-        connection.execute("insert into block(number, leading_zeroes, difficulty, hash, epoch_time, posix_time, miner, rewards, cardano_block_no, cardano_tx_hash) values(-1, 5, 65535, 'e4390b57fd759b5961107b931dca6d826cb2c272f0f711e266df48d0afc3a441', 0, 1693078039000, 'genesis', 0, 9210120, 'f3d2e04e0391f7c95a1aeb6b3f35e33ffd6a060ac36a9ecb64af7f06ae0aa907')")
+        connection.execute("insert into block(number, leading_zeroes, difficulty, hash, epoch_time, posix_time, miner, rewards, cardano_block_no, cardano_tx_hash) values(0, 5, 65535, 'e4390b57fd759b5961107b931dca6d826cb2c272f0f711e266df48d0afc3a441', 0, 1693078039000, 'genesis', 0, 9210120, 'f3d2e04e0391f7c95a1aeb6b3f35e33ffd6a060ac36a9ecb64af7f06ae0aa907')")
 
         connection.commit()
         connection.close()
