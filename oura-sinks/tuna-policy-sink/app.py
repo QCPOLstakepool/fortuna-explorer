@@ -45,8 +45,9 @@ def post_tx():
         ))
 
         return "", 200
-    except:
+    except Exception as err:
         print(request.json)
+        print(err)
 
         return "", 500
 
