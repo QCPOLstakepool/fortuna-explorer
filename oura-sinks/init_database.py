@@ -3,7 +3,7 @@ import os.path
 import sqlite3
 
 if __name__ == "__main__":
-    with open("config.json") as config_file:
+    with open("../backend/config.json") as config_file:
         config = json.load(config_file)
 
     if os.path.exists(config["sqlite"]):

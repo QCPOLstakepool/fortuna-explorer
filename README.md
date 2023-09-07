@@ -39,6 +39,12 @@ backoff_factor = 2
 max_backoff = 100000
 ```
 
+### Oura Sinks
+```
+cd oura-sinks
+python3.9 ../backend/init_database.py
+```
+
 ## Nginx (1.24.0)
 ```
 server {

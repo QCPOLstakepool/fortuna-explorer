@@ -3,7 +3,7 @@ import sqlite3
 
 from flask import Flask, request
 
-with open("config.json") as config_file:
+with open("../backend/config.json") as config_file:
     config = json.load(config_file)
 
 app = Flask(__name__)
