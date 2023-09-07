@@ -1,4 +1,7 @@
 # fortuna-explorer
+
+[Fortuna Explorer](https://fortuna-exlorer.stakepool.quebec/) is an explorer website for the PoW smart contract based token $TUNA on Cardano.
+
 ## Configuration
 ### Oura (1.8.3)
 ```
@@ -28,7 +31,7 @@ argument = "279f842c33eed9054b9e3c70cd6a3b32298259c24b78b895cb41d91a"
 
 [sink]
 type = "Webhook"
-url = "http://127.0.0.1:9000/api/blocks"
+url = "http://127.0.0.1:5001/api/blocks"
 timeout = 30000
 error_policy = "Exit"
 
@@ -39,7 +42,7 @@ backoff_factor = 2
 max_backoff = 100000
 ```
 
-### Oura Sinks
+### Oura Sinks Database
 ```
 cd oura-sinks
 python3.9 ../backend/init_database.py
@@ -78,7 +81,7 @@ server {
 ### Oura Sinks
 ```
 cd oura-sinks
-venv/bin/flask run --port 9000 --debug
+venv/bin/flask run --port 5001 --debug
 ```
 
 ### Backend
