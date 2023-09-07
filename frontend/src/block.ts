@@ -7,4 +7,5 @@ export default interface Block {
     epoch_time: number;
     posix_time: number;
     miner: string;
+    rewards: number;
 }

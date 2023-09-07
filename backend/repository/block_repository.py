@@ -10,11 +10,12 @@ class BlockRepository(SqliteRepository):
             cursor = connection.cursor()
 
             cursor.execute("""select
-                block.number, block.leading_zeroes, block.difficulty, block.hash, block.epoch_time, block.posix_time, block.miner
+                block.number, block.leading_zeroes, block.difficulty, block.hash, block.epoch_time, block.posix_time, block.miner, block.rewards
             from
                 block
             where
-                miner != 'genesis'
+                miner != 'genesis' and
+                hash is not null
             order by
                 block.number {} 
             limit ? 
@@ -27,7 +28,7 @@ class BlockRepository(SqliteRepository):
             blocks = []
 
             for row in rows:
-                blocks.append(Block(row[0], row[1], row[2], row[3], row[4], row[5], row[6]))
+                blocks.append(Block(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7]))
 
             return blocks
         finally:

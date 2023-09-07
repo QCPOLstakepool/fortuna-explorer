@@ -15,10 +15,8 @@ class EpochRepository(SqliteRepository):
                     number, leading_zeroes, difficulty
                 from
                     block
-                order by
-                    number desc
-                limit 
-                    1
+                where
+                    hash is null
             """)
             rows = cursor.fetchall()
 

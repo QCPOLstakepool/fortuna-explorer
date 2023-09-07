@@ -32,22 +32,35 @@ def post_tx():
             raise Exception("Miner output not found.")
 
         connection = sqlite3.connect(config["sqlite"])
+        cursor = connection.cursor()
 
-
-
-        connection.execute("insert into block(number, leading_zeroes, difficulty, hash, epoch_time, posix_time, miner, cardano_block_no, cardano_tx_hash) values(?, ?, ?, ?, ?, ?, ?, ?, ?)", (
-            output_contract["inline_datum"]["plutus_data"]["fields"][0]["int"] - 1,
-            output_contract["inline_datum"]["plutus_data"]["fields"][2]["int"],
-            output_contract["inline_datum"]["plutus_data"]["fields"][3]["int"],
-            output_contract["inline_datum"]["plutus_data"]["fields"][1]["bytes"],
-            output_contract["inline_datum"]["plutus_data"]["fields"][4]["int"],
-            output_contract["inline_datum"]["plutus_data"]["fields"][5]["int"],
-            miner_output["address"],
-            data["context"]["block_number"],
-            data["transaction"]["hash"],
+        cursor.execute("insert into block(number, leading_zeroes, difficulty) values(?, ?, ?)", (
+            output_contract["inline_datum"]["plutus_data"]["fields"][0]["int"],  # number
+            output_contract["inline_datum"]["plutus_data"]["fields"][2]["int"],  # leading_zeroes
+            output_contract["inline_datum"]["plutus_data"]["fields"][3]["int"]   # difficulty
         ))
 
+        if cursor.rowcount != 1:
+            raise Exception("Unable to insert block {}.".format(output_contract["inline_datum"]["plutus_data"]["fields"][0]["int"]))
+
+        rewards = list(filter(lambda asset: asset["policy"] == "279f842c33eed9054b9e3c70cd6a3b32298259c24b78b895cb41d91a" and asset["asset"] == "54554e41", miner_output["assets"]))[0]["amount"]
+
+        cursor.execute("update block set hash = ?, epoch_time = ?, posix_time = ?, miner = ?, rewards = ?, cardano_block_no = ?, cardano_tx_hash = ? where number = ?", (
+            output_contract["inline_datum"]["plutus_data"]["fields"][1]["bytes"],     # hash
+            output_contract["inline_datum"]["plutus_data"]["fields"][4]["int"],       # epoch_time
+            output_contract["inline_datum"]["plutus_data"]["fields"][5]["int"],       # posix_time
+            miner_output["address"],                                                  # miner
+            rewards,                                                                  # rewards
+            data["context"]["block_number"],                                          # cardano block
+            data["transaction"]["hash"],                                              # cardano tx hash
+            output_contract["inline_datum"]["plutus_data"]["fields"][0]["int"] - 1    # number
+        ))
+
+        if cursor.rowcount != 1:
+            raise Exception("Unable to update block {} (not found).".format(output_contract["inline_datum"]["plutus_data"]["fields"][0]["int"] - 1))
+
         connection.commit()
+        cursor.close()
 
         return "", 200
     except Exception as err:
