@@ -18,6 +18,9 @@ def post_tx():
         if "transaction" not in data:  # Not what we're looking for
             return "", 200
 
+        if data["transaction"]["hash"] == "f3d2e04e0391f7c95a1aeb6b3f35e33ffd6a060ac36a9ecb64af7f06ae0aa907":  # Genesis TX
+            return "", 200
+
         output_contract = get_output_contract(data)
 
         if output_contract is None:
