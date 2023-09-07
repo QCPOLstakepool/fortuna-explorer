@@ -3,10 +3,11 @@ import sqlite3
 
 from flask import Flask, request
 
-with open("../config.json") as config_file:
+with open("config.json") as config_file:
     config = json.load(config_file)
 
 app = Flask(__name__)
+
 
 @app.route("/api/tx", methods = ["POST"])
 def post_tx():
@@ -30,8 +31,6 @@ def post_tx():
 
         if miner_output is None:
             raise Exception("Miner output not found.")
-
-        print(request.json)
 
         connection = sqlite3.connect(config["sqlite"])
 
