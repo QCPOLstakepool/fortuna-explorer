@@ -31,6 +31,8 @@ def post_tx():
         if miner_output is None:
             raise Exception("Miner output not found.")
 
+        print(request.json)
+
         connection = sqlite3.connect(config["sqlite"])
 
         connection.execute("insert into block(number, leading_zeroes, difficulty, hash, epoch_time, posix_time, miner, cardano_block_no, cardano_tx_hash) values(?, ?, ?, ?, ?, ?, ?, ?, ?)", (
@@ -49,7 +51,6 @@ def post_tx():
 
         return "", 200
     except Exception as err:
-        print(request.json)
         print(err)
 
         return "", 500
