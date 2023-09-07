@@ -1,6 +1,6 @@
 # fortuna-explorer
 
-[Fortuna Explorer](https://fortuna-exlorer.stakepool.quebec/) is an explorer website for the PoW smart contract based token $TUNA on Cardano.
+[Fortuna Explorer](https://fortuna-explorer.stakepool.quebec/) is an explorer website for the PoW smart contract based token $TUNA on Cardano.
 
 ## Configuration
 ### Oura (1.8.3)
