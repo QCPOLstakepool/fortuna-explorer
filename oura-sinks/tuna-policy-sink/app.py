@@ -19,12 +19,15 @@ def post_tx():
         output_contract = get_output_contract(json)
 
         if output_contract is None:
-            return "Output to contract address not found.", 500
+            return "Contract output not found.", 500
 
         if output_contract["inline_datum"]["plutus_data"]["fields"][0]["int"] == 0:
             return "Genesis block.", 200
 
         miner_output = get_miner_output(json)
+
+        if miner_output is None:
+            return "Miner output not found.", 500
 
         connection = sqlite3.connect(config["sqlite"])
         cursor = connection.cursor()
@@ -35,8 +38,10 @@ def post_tx():
             output_contract["inline_datum"]["plutus_data"]["fields"][3]["int"],
             output_contract["inline_datum"]["plutus_data"]["fields"][1]["bytes"],
             output_contract["inline_datum"]["plutus_data"]["fields"][4]["int"],
-            output_contract["inline_datum"]["plutus_data"]["fields"][5]["int"]
-
+            output_contract["inline_datum"]["plutus_data"]["fields"][5]["int"],
+            miner_output["address"],
+            json["context"]["block_number"],
+            json["transaction"]["hash"],
         ))
 
         return "", 200
@@ -48,10 +53,15 @@ def post_tx():
 
 def get_output_contract(json):
     for output in json["transaction"]["outputs"]:
-        if output["address"] == "addr1wynelppvx0hdjp2tnc78pnt28veznqjecf9h3wy4edqajxsg7hwsc":
+        if output["address"] == "addr1wynelppvx0hdjp2tnc78pnt28veznqjecf9h3wy4edqajxsg7hwsc" and len(list(filter(lambda asset: asset["policy"] == "279f842c33eed9054b9e3c70cd6a3b32298259c24b78b895cb41d91a" and asset["asset"] == "6c6f72642074756e61", output["assets"]))) == 1:
             return output
 
     return None
 
+
 def get_miner_output(json):
+    for output in json["transaction"]["outputs"]:
+        if len(list(filter(lambda asset: asset["policy"] == "279f842c33eed9054b9e3c70cd6a3b32298259c24b78b895cb41d91a" and asset["asset"] == "54554e41", output["assets"]))) == 1:
+            return output
+
     return None
