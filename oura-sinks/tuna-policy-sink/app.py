@@ -13,10 +13,13 @@ def post_tx():
     try:
         json = request.json
 
+        if "transaction" not in json:  # Not what we're looking for
+            return None, 200
+
         output_contract = get_output_contract(json)
 
         if output_contract is None:
-            return "Outout to contract address not found.", 500
+            return "Output to contract address not found.", 500
 
         if output_contract["inline_datum"]["plutus_data"]["fields"][0]["int"] == 0:
             return "Genesis block.", 200
