@@ -1,7 +1,6 @@
 # fortuna-explorer
 ## Configuration
 ### Oura (1.8.3)
-
 ```
 [source]
 type = "N2C"
@@ -40,23 +39,7 @@ backoff_factor = 2
 max_backoff = 100000
 ```
 
-### Custom Oura Sink
-TODO
-
-## Run
-### Backend
-```
-cd backend
-venv/bin/flask --debug run
-```
-
-### Frontend
-``` 
-cd frontend
-npm run start
-```
-
-## Nginx conf
+## Nginx (1.24.0)
 ```
 server {
     listen       8080;
@@ -83,4 +66,23 @@ server {
         proxy_cache_bypass $http_upgrade;
     }
 }
+```
+
+## Run
+### Oura Sinks
+```
+cd oura-sinks
+venv/bin/flask run --port 9000 --debug
+```
+
+### Backend
+```
+cd backend
+venv/bin/flask run --port 5000 --debug
+```
+
+### Frontend
+``` 
+cd frontend
+npm run start
 ```
