@@ -21,7 +21,7 @@ def post_tx():
         output_contract = get_output_contract(json)
 
         if output_contract is None:
-            return "Contract output not found.", 500
+            raise Exception("Contract output not found.")
 
         if output_contract["inline_datum"]["plutus_data"]["fields"][0]["int"] == 0:
             return "Genesis block.", 200
@@ -29,7 +29,7 @@ def post_tx():
         miner_output = get_miner_output(json)
 
         if miner_output is None:
-            return "Miner output not found.", 500
+            raise Exception("Miner output not found.")
 
         connection = sqlite3.connect(config["sqlite"])
 
