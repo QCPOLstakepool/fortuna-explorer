@@ -51,3 +51,4 @@ def get_output_contract(json):
     return None
 
 def get_miner_output(json):
+    return None
