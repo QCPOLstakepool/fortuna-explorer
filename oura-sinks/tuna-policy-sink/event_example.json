@@ -1,0 +1,134 @@
+{
+  "context": {
+    "block_hash": "c8b13bb97f5387b9996b18083258591b47527a8f4ab65b3394b248b8b0a0b2f7",
+    "block_number": 9210120,
+    "slot": 101511762,
+    "timestamp": 1693078053,
+    "tx_idx": 4,
+    "tx_hash": "f3d2e04e0391f7c95a1aeb6b3f35e33ffd6a060ac36a9ecb64af7f06ae0aa907",
+    "input_idx": null,
+    "output_idx": null,
+    "output_address": null,
+    "certificate_idx": null
+  },
+  "transaction": {
+    "hash": "f3d2e04e0391f7c95a1aeb6b3f35e33ffd6a060ac36a9ecb64af7f06ae0aa907",
+    "fee": 369936,
+    "ttl": 101511838,
+    "validity_interval_start": 101511658,
+    "network_id": null,
+    "input_count": 1,
+    "collateral_input_count": 1,
+    "has_collateral_output": true,
+    "output_count": 2,
+    "mint_count": 1,
+    "total_output": 32740064,
+    "metadata": null,
+    "inputs": [
+      {
+        "tx_id": "21fc8e4f33ca92e38f78f9bbd84cef1c037b15a86665ddba4528c7ecbc60ac90",
+        "index": 0
+      }
+    ],
+    "outputs": [
+      {
+        "address": "addr1wynelppvx0hdjp2tnc78pnt28veznqjecf9h3wy4edqajxsg7hwsc",
+        "amount": 1314550,
+        "assets": [
+          {
+            "policy": "279f842c33eed9054b9e3c70cd6a3b32298259c24b78b895cb41d91a",
+            "asset": "6c6f72642074756e61",
+            "asset_ascii": "lord tuna",
+            "amount": 1
+          }
+        ],
+        "datum_hash": "d5082004792551a60d171cae0051823180dd5c626a9bbbc889e8598395fa8ddd",
+        "inline_datum": {
+          "datum_hash": "d5082004792551a60d171cae0051823180dd5c626a9bbbc889e8598395fa8ddd",
+          "plutus_data": {
+            "constructor": 0,
+            "fields": [
+              {
+                "int": 0
+              },
+              {
+                "bytes": "e4390b57fd759b5961107b931dca6d826cb2c272f0f711e266df48d0afc3a441"
+              },
+              {
+                "int": 5
+              },
+              {
+                "int": 65535
+              },
+              {
+                "int": 0
+              },
+              {
+                "int": 1693078039000
+              },
+              {
+                "int": 0
+              },
+              {
+                "list": []
+              }
+            ]
+          }
+        }
+      },
+      {
+        "address": "addr1qy0mrayspfvtxtejh3lua4q9psmsq9ws5tv32f65w6d99yk89njnfr982r03e59c0qfyme5mnyz0c99l7u8679nt7xxqa4dprc",
+        "amount": 31425514,
+        "assets": [],
+        "datum_hash": null,
+        "inline_datum": null
+      }
+    ],
+    "collateral_inputs": [
+      {
+        "tx_id": "21fc8e4f33ca92e38f78f9bbd84cef1c037b15a86665ddba4528c7ecbc60ac90",
+        "index": 0
+      }
+    ],
+    "collateral_output": {
+      "address": "addr1qy0mrayspfvtxtejh3lua4q9psmsq9ws5tv32f65w6d99yk89njnfr982r03e59c0qfyme5mnyz0c99l7u8679nt7xxqa4dprc",
+      "amount": 32555096,
+      "assets": [],
+      "datum_hash": null,
+      "inline_datum": null
+    },
+    "mint": [
+      {
+        "policy": "279f842c33eed9054b9e3c70cd6a3b32298259c24b78b895cb41d91a",
+        "asset": "6c6f72642074756e61",
+        "quantity": 1
+      }
+    ],
+    "vkey_witnesses": [
+      {
+        "vkey_hex": "b2f279c71c683862deccba2dbbdd4e0e59dd98535f71aa6dda7b5f0beb73f7b9",
+        "signature_hex": "6b14d8aea4bf0c757fbc4eb4c82ba7e3277948d58681d884479ac66a577a0779f282f2f8b3154231e69ad0556ad53a54e664c607842787a3cbaeeb4e51b36602"
+      }
+    ],
+    "native_witnesses": [],
+    "plutus_witnesses": [],
+    "plutus_redeemers": [
+      {
+        "purpose": "mint",
+        "ex_units_mem": 150515,
+        "ex_units_steps": 70704313,
+        "input_idx": 0,
+        "plutus_data": {
+          "constructor": 1,
+          "fields": []
+        }
+      }
+    ],
+    "plutus_data": [],
+    "withdrawals": null,
+    "size": 4562
+  },
+  "fingerprint": null,
+  "variant": "Transaction",
+  "timestamp": 1693078053000
+}
