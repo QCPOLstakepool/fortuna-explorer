@@ -14,7 +14,7 @@ def post_tx():
         json = request.json
 
         if "transaction" not in json:  # Not what we're looking for
-            return None, 200
+            return "", 200
 
         output_contract = get_output_contract(json)
 
