@@ -21,7 +21,7 @@ def post_tx():
         output_contract = get_output_contract(json)
 
         if output_contract is None:
-            raise Exception("Contract output not found.")
+            return "Not a mint transaction.", 200
 
         if output_contract["inline_datum"]["plutus_data"]["fields"][0]["int"] == 0:
             return "Genesis block.", 200
