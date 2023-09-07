@@ -28,7 +28,7 @@ argument = "279f842c33eed9054b9e3c70cd6a3b32298259c24b78b895cb41d91a"
 
 [sink]
 type = "Webhook"
-url = "http://127.0.0.1:9000/api/block"
+url = "http://127.0.0.1:9000/api/blocks"
 timeout = 30000
 error_policy = "Exit"
 

@@ -9,7 +9,7 @@ with open("config.json") as config_file:
 app = Flask(__name__)
 
 
-@app.route("/api/block", methods=["POST"])
+@app.route("/api/blocks", methods=["POST"])
 def post_tx():
     connection = None
     data = request.json
@@ -22,9 +22,6 @@ def post_tx():
 
         if output_contract is None:
             return "Not a mint transaction.", 200
-
-        if output_contract["inline_datum"]["plutus_data"]["fields"][0]["int"] == 0:
-            return "Genesis block.", 200
 
         miner_output = get_miner_output(data)
 
@@ -43,21 +40,22 @@ def post_tx():
         if cursor.rowcount != 1:
             raise Exception("Unable to insert block {}.".format(output_contract["inline_datum"]["plutus_data"]["fields"][0]["int"]))
 
-        rewards = list(filter(lambda asset: asset["policy"] == "279f842c33eed9054b9e3c70cd6a3b32298259c24b78b895cb41d91a" and asset["asset"] == "54554e41", miner_output["assets"]))[0]["amount"]
+        if output_contract["inline_datum"]["plutus_data"]["fields"][0]["int"] > 0:
+            rewards = list(filter(lambda asset: asset["policy"] == "279f842c33eed9054b9e3c70cd6a3b32298259c24b78b895cb41d91a" and asset["asset"] == "54554e41", miner_output["assets"]))[0]["amount"]
 
-        cursor.execute("update block set hash = ?, epoch_time = ?, posix_time = ?, miner = ?, rewards = ?, cardano_block_no = ?, cardano_tx_hash = ? where number = ?", (
-            output_contract["inline_datum"]["plutus_data"]["fields"][1]["bytes"],     # hash
-            output_contract["inline_datum"]["plutus_data"]["fields"][4]["int"],       # epoch_time
-            output_contract["inline_datum"]["plutus_data"]["fields"][5]["int"],       # posix_time
-            miner_output["address"],                                                  # miner
-            rewards,                                                                  # rewards
-            data["context"]["block_number"],                                          # cardano block
-            data["transaction"]["hash"],                                              # cardano tx hash
-            output_contract["inline_datum"]["plutus_data"]["fields"][0]["int"] - 1    # number
-        ))
+            cursor.execute("update block set hash = ?, epoch_time = ?, posix_time = ?, miner = ?, rewards = ?, cardano_block_no = ?, cardano_tx_hash = ? where number = ?", (
+                output_contract["inline_datum"]["plutus_data"]["fields"][1]["bytes"],     # hash
+                output_contract["inline_datum"]["plutus_data"]["fields"][4]["int"],       # epoch_time
+                output_contract["inline_datum"]["plutus_data"]["fields"][5]["int"],       # posix_time
+                miner_output["address"],                                                  # miner
+                rewards,                                                                  # rewards
+                data["context"]["block_number"],                                          # cardano block
+                data["transaction"]["hash"],                                              # cardano tx hash
+                output_contract["inline_datum"]["plutus_data"]["fields"][0]["int"] - 1    # number
+            ))
 
-        if cursor.rowcount != 1:
-            raise Exception("Unable to update block {} (not found).".format(output_contract["inline_datum"]["plutus_data"]["fields"][0]["int"] - 1))
+            if cursor.rowcount != 1:
+                raise Exception("Unable to update block {} (not found).".format(output_contract["inline_datum"]["plutus_data"]["fields"][0]["int"] - 1))
 
         connection.commit()
         cursor.close()
