@@ -1,18 +1,17 @@
 import {useEffect, useState} from "react";
 import "./Home.scss";
-import FortunaBlock from "../fortuna_block";
+import Block from "../block";
 import {useTranslation} from "react-i18next";
+import CurrentEpoch from "../currentEpoch";
 
 function Home(): JSX.Element {
     const {t} = useTranslation();
-    const [nextBlock, setNextBlock] = useState<FortunaBlock>({
-        block_no: 0, hash: "00000000000000000000000000000000", leading_zero: 0, difficulty: 0, epoch_time: 0, current_posix_time: 0
-    });
-    const [recentBlocks, setRecentBlocks] = useState<FortunaBlock[]>([]);
+    const [currentEpoch, setCurrentEpoch] = useState<CurrentEpoch | undefined>(undefined);
+    const [recentBlocks, setRecentBlocks] = useState<Block[] | undefined>(undefined);
 
     useEffect(() => {
-        fetch('api/blocks/next').then(response => response.json()).then(response => {
-            setNextBlock(response);
+        fetch('api/epochs/current').then(response => response.json()).then(response => {
+            setCurrentEpoch(response);
         });
 
         fetch('api/blocks').then(response => response.json()).then(response => {
@@ -20,22 +19,25 @@ function Home(): JSX.Element {
         });
     }, []);
 
+    if (currentEpoch === undefined || recentBlocks === undefined)
+        return <>Loading</>;
+
     return <div className="Home">
         <div className="container-fluid mt-4">
             <h1>{t('CurrentEpoch')}</h1>
 
             <div className="current-epoch d-flex flex-column flex-lg-row justify-content-between">
                 <div className="current-epoch-stats narrow-label d-flex flex-column flex-grow-1">
-                    {getCurrentEpochStat(t('Number'), getEpochNumber(nextBlock?.block_no))}
-                    {getCurrentEpochStat(t('Progress'), `${((((nextBlock?.block_no - 1) % 2016) / 2016) * 100).toFixed(2)}%`)}
+                    {getCurrentEpochStat(t('Number'), currentEpoch.number)}
+                    {getCurrentEpochStat(t('Progress'), `${(currentEpoch.progress * 100).toFixed(2)}%`)}
                     {getCurrentEpochStat(t('NextEpochIn'), <>
-                        <div className="p-0">{t('ValueBlocks', {blocks: 2016 - (((nextBlock?.block_no - 1) ?? 0) % 2016)})}</div>
+                        <div className="p-0">{t('ValueBlocks', {blocks: currentEpoch.blocks_remaining})}</div>
                         <div className="p-0">---</div>
                     </>)}
                 </div>
                 <div className="current-epoch-stats wide-label d-flex flex-column flex-grow-1">
-                    {getCurrentEpochStat(t('LeadingZeroes'), nextBlock?.leading_zero)}
-                    {getCurrentEpochStat(t('Difficulty'), nextBlock?.difficulty)}
+                    {getCurrentEpochStat(t('LeadingZeroes'), currentEpoch.leading_zeroes)}
+                    {getCurrentEpochStat(t('Difficulty'), currentEpoch.difficulty)}
                     {getCurrentEpochStat(t('AverageBlockTimeEpoch'), "---")}
                     {getCurrentEpochStat(t('AverageBlockTimeLast100Blocks'), "---")}
                     {getCurrentEpochStat(t('EstimatedHashPower'), "---")}
@@ -57,24 +59,20 @@ function Home(): JSX.Element {
                 </thead>
                 <tbody>
                 {
-                    recentBlocks.map((block: FortunaBlock) => <tr key={block.block_no}>
-                        <td>{getEpochNumber(block.block_no - 1)}</td>
-                        <td>{block.block_no}</td>
-                        <td>{block.leading_zero}</td>
+                    recentBlocks.map((block: Block) => <tr key={block.number}>
+                        <td>{block.epoch}</td>
+                        <td>{block.number}</td>
+                        <td>{block.leading_zeroes}</td>
                         <td>{block.difficulty}</td>
-                        <td className="d-none d-xxl-table-cell">{formatHash(block.hash, block.leading_zero)}</td>
-                        <td>{new Date(block.current_posix_time).toLocaleString()}</td>
-                        <td>{`${block.miner?.substring(0, 6)}\u2026${block.miner?.substring(block.miner?.length - 6)}`}</td>
+                        <td className="d-none d-xxl-table-cell">{formatHash(block.hash, block.leading_zeroes)}</td>
+                        <td>{new Date(block.posix_time).toLocaleString()}</td>
+                        <td>{`${block.miner.substring(0, 6)}\u2026${block.miner.substring(block.miner.length - 6)}`}</td>
                     </tr>)
                 }
                 </tbody>
             </table>
         </div>
     </div>;
-
-    function getEpochNumber(block: number): number {
-        return Math.floor(block / 2016) + 1;
-    }
 
     function getCurrentEpochStat(label: string, value: JSX.Element | string | number): JSX.Element {
        return <div className="current-epoch-stat d-flex">

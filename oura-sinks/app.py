@@ -33,6 +33,8 @@ def post_tx():
 
         connection = sqlite3.connect(config["sqlite"])
 
+
+
         connection.execute("insert into block(number, leading_zeroes, difficulty, hash, epoch_time, posix_time, miner, cardano_block_no, cardano_tx_hash) values(?, ?, ?, ?, ?, ?, ?, ?, ?)", (
             output_contract["inline_datum"]["plutus_data"]["fields"][0]["int"] - 1,
             output_contract["inline_datum"]["plutus_data"]["fields"][2]["int"],
