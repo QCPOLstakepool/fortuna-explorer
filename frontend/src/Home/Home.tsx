@@ -47,25 +47,27 @@ function Home(): JSX.Element {
             <table className="table">
                 <thead>
                     <tr>
-                        <th>{t('Epoch')}</th>
+                        <th className="d-none d-lg-table-cell">{t('Epoch')}</th>
                         <th>{t('Block')}</th>
-                        <th>{t('LeadingZeroes')}</th>
-                        <th>{t('Difficulty')}</th>
+                        <th className="d-none d-md-table-cell">{t('LeadingZeroes')}</th>
+                        <th className="d-none d-lg-table-cell">{t('Difficulty')}</th>
                         <th className="d-none d-xxl-table-cell">{t('Hash')}</th>
-                        <th>{t('Time')}</th>
                         <th>{t('Miner')}</th>
+                        <th>{t('Rewards')}</th>
+                        <th>{t('Time')}</th>
                     </tr>
                 </thead>
                 <tbody>
                 {
                     recentBlocks.map((block: Block) => <tr key={block.number}>
-                        <td>{block.epoch}</td>
+                        <td className="d-none d-lg-table-cell">{block.epoch}</td>
                         <td>{block.number}</td>
-                        <td>{block.leading_zeroes}</td>
-                        <td>{block.difficulty}</td>
+                        <td className="d-none d-md-table-cell">{block.leading_zeroes}</td>
+                        <td className="d-none d-lg-table-cell">{block.difficulty}</td>
                         <td className="d-none d-xxl-table-cell">{formatHash(block.hash, block.leading_zeroes)}</td>
+                        <td><span className="d-none d-md-inline">{`${block.miner.substring(0, 6)}\u2026$`}</span><span>{`${block.miner.substring(block.miner.length - 6)}`}</span></td>
+                        <td>50.00000000</td>
                         <td>{new Date(block.posix_time).toLocaleString()}</td>
-                        <td>{`${block.miner.substring(0, 6)}\u2026${block.miner.substring(block.miner.length - 6)}`}</td>
                     </tr>)
                 }
                 </tbody>
