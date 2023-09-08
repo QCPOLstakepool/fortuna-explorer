@@ -32,14 +32,13 @@ function Home(): JSX.Element {
                     {getCurrentEpochStat(t('Progress'), `${(currentEpoch.progress * 100).toFixed(2)}%`)}
                     {getCurrentEpochStat(t('NextEpochIn'), <>
                         <div className="p-0">{t('ValueBlocks', {blocks: currentEpoch.blocks_remaining})}</div>
-                        <div className="p-0">---</div>
+                        <div className="p-0">{`~${getHumanFormatTime(currentEpoch.blocks_remaining * currentEpoch.average_block_time)}`}</div>
                     </>)}
                 </div>
                 <div className="current-epoch-stats wide-label d-flex flex-column flex-grow-1">
                     {getCurrentEpochStat(t('LeadingZeroes'), currentEpoch.leading_zeroes)}
                     {getCurrentEpochStat(t('Difficulty'), currentEpoch.difficulty)}
-                    {getCurrentEpochStat(t('AverageBlockTimeEpoch'), "---")}
-                    {getCurrentEpochStat(t('AverageBlockTimeLast100Blocks'), "---")}
+                    {getCurrentEpochStat(t('AverageBlockTimeEpoch'), getHumanFormatTime(currentEpoch.average_block_time))}
                     {getCurrentEpochStat(t('EstimatedHashPower'), "---")}
                 </div>
             </div>
@@ -85,6 +84,28 @@ function Home(): JSX.Element {
         return <>
             0<sub>{leading_zero}</sub>{hash.substring(leading_zero)}
         </>;
+    }
+
+    function getHumanFormatTime(seconds: number): string {
+        const weeks = Math.floor(seconds / (60 * 60 * 24 * 7));
+        seconds -= weeks * (60 * 60 * 24 * 7);
+        const days = Math.floor(seconds / (60 * 60 * 24));
+        seconds -= days * (60 * 60 * 24);
+        const hours = Math.floor(seconds / (60 * 60));
+        seconds -= hours * (60 * 60);
+        const minutes = Math.floor(seconds / 60);
+        seconds -= minutes * 60;
+
+        if (weeks > 0)
+            return `${weeks}w ${days}d ${hours}h ${minutes}m ${seconds}s`;
+        else if (days > 0)
+            return `${days}d ${hours}h ${minutes}m ${seconds}s`;
+        else if (hours > 0)
+            return `${hours}h ${minutes}m ${seconds}s`;
+        else if (minutes > 0)
+            return `${minutes}m ${seconds}s`;
+        else
+            return `${seconds}s`;
     }
 }
 
