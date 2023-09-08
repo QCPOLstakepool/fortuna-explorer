@@ -11,7 +11,6 @@
   "LeadingZeroes": "Leading Zeroes",
   "Difficulty": "Difficulty",
   "AverageBlockTimeEpoch": "Average Block Time (Epoch)",
-  "AverageBlockTimeLast100Blocks": "Average Block Time (Last 100 Blocks)",
   "ValueBlocks": "{{blocks}} blocks",
   "RecentBlocks": "Recent Blocks",
   "Time": "Time",

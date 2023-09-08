@@ -18,8 +18,11 @@ function FortunaExplorer(): JSX.Element {
                 </Routes>
 
                 <div className="d-flex flex-column align-items-center mt-4 mb-4">
-                    <div className="mb-2">Made with ❤️ by <a href="https://qcpol.stakepool.quebec" target="_blank" rel="noreferrer">QCPOL Stake Pool</a>. Powered by <a href="https://github.com/txpipe/oura" target="_blank" rel="noreferrer">Oura</a>.</div>
-                    <div>Find this helpful? 😊 Stake with QCPOL or send tip to <span style={{backgroundColor: "lightgray"}}>addr1qy54zzgykl3w9skx8r2vc78mudzqemak7sx63va5fljrslslfmvv46xeudh9rhsec76gr88lnv2jfqt76yw8zymnx9rse9evg9</span>.</div>
+                    <div className="d-flex flex-column align-items-center mb-2">
+                        <div>Made with ❤️ by <a href="https://qcpol.stakepool.quebec" target="_blank" rel="noreferrer">QCPOL Stake Pool</a>.</div>
+                        <div>Powered by <a href="https://github.com/txpipe/oura" target="_blank" rel="noreferrer">Oura</a>.</div>
+                    </div>
+                    <div>Find this helpful? 😊 Stake with QCPOL or send tip to <span style={{backgroundColor: "lightgray", wordBreak: "break-all"}}>addr1qy54zzgykl3w9skx8r2vc78mudzqemak7sx63va5fljrslslfmvv46xeudh9rhsec76gr88lnv2jfqt76yw8zymnx9rse9evg9</span>.</div>
                 </div>
             </div>
         </div>
