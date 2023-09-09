@@ -10,13 +10,15 @@ function Home(): JSX.Element {
     const [recentBlocks, setRecentBlocks] = useState<Block[] | undefined>(undefined);
 
     useEffect(() => {
-        fetch('api/epochs/current').then(response => response.json()).then(response => {
-            setCurrentEpoch(response);
-        });
+        const refreshInterval = setInterval(() => {
+            updateData();
+        }, 60000);
 
-        fetch('api/blocks').then(response => response.json()).then(response => {
-            setRecentBlocks(response);
-        });
+        updateData();
+
+        return () => {
+            clearInterval(refreshInterval);
+        }
     }, []);
 
     if (currentEpoch === undefined || recentBlocks === undefined)
@@ -74,6 +76,16 @@ function Home(): JSX.Element {
             </table>
         </div>
     </div>;
+
+    function updateData(): void {
+        fetch('api/epochs/current').then(response => response.json()).then(response => {
+            setCurrentEpoch(response);
+        });
+
+        fetch('api/blocks').then(response => response.json()).then(response => {
+            setRecentBlocks(response);
+        });
+    }
 
     function getCurrentEpochStat(label: string, value: JSX.Element | string | number): JSX.Element {
        return <div className="current-epoch-stat d-flex">
