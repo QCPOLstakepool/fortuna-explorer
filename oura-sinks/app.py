@@ -1,4 +1,5 @@
 import json
+import math
 import sqlite3
 
 from flask import Flask, request
@@ -44,7 +45,8 @@ def post_tx():
             raise Exception("Unable to insert block {}.".format(output_contract["inline_datum"]["plutus_data"]["fields"][0]["int"]))
 
         if output_contract["inline_datum"]["plutus_data"]["fields"][0]["int"] > 0:
-            rewards = list(filter(lambda asset: asset["policy"] == "279f842c33eed9054b9e3c70cd6a3b32298259c24b78b895cb41d91a" and asset["asset"] == "54554e41", miner_output["assets"]))[0]["amount"]
+            mined_block_number = output_contract["inline_datum"]["plutus_data"]["fields"][0]["int"] - 1
+            rewards = calculate_rewards(mined_block_number)
 
             cursor.execute("update block set hash = ?, epoch_time = ?, posix_time = ?, miner = ?, rewards = ?, cardano_block_no = ?, cardano_tx_hash = ? where number = ?", (
                 output_contract["inline_datum"]["plutus_data"]["fields"][1]["bytes"],     # hash
@@ -54,11 +56,11 @@ def post_tx():
                 rewards,                                                                  # rewards
                 data["context"]["block_number"],                                          # cardano block
                 data["transaction"]["hash"],                                              # cardano tx hash
-                output_contract["inline_datum"]["plutus_data"]["fields"][0]["int"] - 1    # number
+                mined_block_number                                                        # number
             ))
 
             if cursor.rowcount != 1:
-                raise Exception("Unable to update block {} (not found).".format(output_contract["inline_datum"]["plutus_data"]["fields"][0]["int"] - 1))
+                raise Exception("Unable to update block {} (not found).".format(mined_block_number))
 
         connection.commit()
         cursor.close()
@@ -88,3 +90,11 @@ def get_miner_output(data):
             return output
 
     return None
+
+
+def calculate_rewards(block_number) -> int:
+    initial_payout = 5000000000
+    halving_number = 210000
+    halving_exponent = math.floor(block_number / halving_number)
+
+    return 0 if halving_exponent > 29 else math.floor(initial_payout / (2 ** halving_exponent))

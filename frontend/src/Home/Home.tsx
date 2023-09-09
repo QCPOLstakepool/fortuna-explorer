@@ -66,7 +66,7 @@ function Home(): JSX.Element {
                         <td className="d-none d-lg-table-cell">{block.difficulty}</td>
                         <td className="d-none d-xxl-table-cell">{formatHash(block.hash, block.leading_zeroes)}</td>
                         <td><span className="d-none d-md-inline">{`${block.miner.substring(0, 6)}\u2026`}</span><span>{`${block.miner.substring(block.miner.length - 6)}`}</span></td>
-                        <td>50.00000000</td>
+                        <td>{(block.rewards / 1000000000).toFixed(8)}</td>
                         <td>{new Date(block.posix_time).toLocaleString()}</td>
                     </tr>)
                 }
