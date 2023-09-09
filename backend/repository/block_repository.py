@@ -14,7 +14,6 @@ class BlockRepository(SqliteRepository):
             from
                 block
             where
-                miner != 'genesis' and
                 hash is not null
             order by
                 block.number {} 
