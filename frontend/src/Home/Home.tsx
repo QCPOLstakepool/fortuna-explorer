@@ -39,9 +39,9 @@ function Home(): JSX.Element {
                 </div>
                 <div className="current-epoch-stats wide-label d-flex flex-column flex-grow-1">
                     {getCurrentEpochStat(t('LeadingZeroes'), currentEpoch.leading_zeroes)}
-                    {getCurrentEpochStat(t('Difficulty'), currentEpoch.difficulty)}
+                    {getCurrentEpochStat(t('Target'), currentEpoch.target)}
                     {getCurrentEpochStat(t('AverageBlockTimeEpoch'), getHumanFormatTime(currentEpoch.average_block_time))}
-                    {getCurrentEpochStat(t('EstimatedHashPower'), "---")}
+                    {getCurrentEpochStat(t('EstimatedHashPower'), getHumanFormatHashRate(currentEpoch.estimated_hash_rate))}
                 </div>
             </div>
 
@@ -52,7 +52,7 @@ function Home(): JSX.Element {
                         <th className="d-none d-lg-table-cell">{t('Epoch')}</th>
                         <th>{t('Block')}</th>
                         <th className="d-none d-md-table-cell">{t('LeadingZeroes')}</th>
-                        <th className="d-none d-lg-table-cell">{t('Difficulty')}</th>
+                        <th className="d-none d-lg-table-cell">{t('Target')}</th>
                         <th className="d-none d-xxl-table-cell">{t('Hash')}</th>
                         <th>{t('Miner')}</th>
                         <th>{t('Rewards')}</th>
@@ -65,7 +65,7 @@ function Home(): JSX.Element {
                         <td className="d-none d-lg-table-cell">{block.epoch}</td>
                         <td>{block.number}</td>
                         <td className="d-none d-md-table-cell">{block.leading_zeroes}</td>
-                        <td className="d-none d-lg-table-cell">{block.difficulty}</td>
+                        <td className="d-none d-lg-table-cell">{block.target}</td>
                         <td className="d-none d-xxl-table-cell">{formatHash(block.hash, block.leading_zeroes)}</td>
                         <td><span className="d-none d-md-inline">{`${block.miner.substring(0, 6)}\u2026`}</span><span>{`${block.miner.substring(block.miner.length - 6)}`}</span></td>
                         <td>{(block.rewards / 100000000).toFixed(8)}</td>
@@ -120,6 +120,19 @@ function Home(): JSX.Element {
             return `${minutes}m ${seconds}s`;
         else
             return `${seconds}s`;
+    }
+
+    function getHumanFormatHashRate(hashRate: number): string {
+        if (hashRate >= 1_000_000_000_000_000)
+            return `${(hashRate / 1_000_000_000_000_000).toFixed(2)} GH/s`
+        else if (hashRate >= 1_000_000_000_000)
+            return `${(hashRate / 1_000_000_000_000).toFixed(2)} TH/s`
+        else if (hashRate >= 1_000_000_000)
+            return `${(hashRate / 1_000_000_000).toFixed(2)} MH/s`
+        else if (hashRate >= 1_000_000)
+            return `${(hashRate / 1_000_000).toFixed(2)} KH/s`
+        else
+            return `${(hashRate).toFixed(2)} H/s`
     }
 }
 

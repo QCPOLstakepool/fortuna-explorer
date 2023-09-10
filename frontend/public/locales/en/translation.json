@@ -10,6 +10,7 @@
   "Hash": "Hash",
   "LeadingZeroes": "Leading Zeroes",
   "Difficulty": "Difficulty",
+  "Target": "Target",
   "AverageBlockTimeEpoch": "Average Block Time (Epoch)",
   "ValueBlocks": "{{blocks}} blocks",
   "RecentBlocks": "Recent Blocks",

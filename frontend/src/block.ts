@@ -2,7 +2,7 @@ export default interface Block {
     epoch: number;
     number: number;
     leading_zeroes: number;
-    difficulty: number;
+    target: number;
     hash: string;
     epoch_time: number;
     posix_time: number;

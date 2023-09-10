@@ -4,6 +4,7 @@ export default interface CurrentEpoch {
     progress: number;
     blocks_remaining: number;
     leading_zeroes: number;
-    difficulty: number;
+    target: number;
     average_block_time: number;
+    estimated_hash_rate: number;
 }

@@ -38,7 +38,7 @@ def post_tx():
         cursor.execute("insert into block(number, leading_zeroes, difficulty) values(?, ?, ?)", (
             output_contract["inline_datum"]["plutus_data"]["fields"][0]["int"],  # number
             output_contract["inline_datum"]["plutus_data"]["fields"][2]["int"],  # leading_zeroes
-            output_contract["inline_datum"]["plutus_data"]["fields"][3]["int"]   # difficulty
+            output_contract["inline_datum"]["plutus_data"]["fields"][3]["int"]   # target
         ))
 
         if cursor.rowcount != 1:
