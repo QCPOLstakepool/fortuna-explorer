@@ -124,13 +124,15 @@ function Home(): JSX.Element {
 
     function getHumanFormatHashRate(hashRate: number): string {
         if (hashRate >= 1_000_000_000_000_000)
-            return `${(hashRate / 1_000_000_000_000_000).toFixed(2)} GH/s`
+            return `${(hashRate / 1_000_000_000_000_000).toFixed(2)} EH/s`
         else if (hashRate >= 1_000_000_000_000)
             return `${(hashRate / 1_000_000_000_000).toFixed(2)} TH/s`
         else if (hashRate >= 1_000_000_000)
-            return `${(hashRate / 1_000_000_000).toFixed(2)} MH/s`
+            return `${(hashRate / 1_000_000_000).toFixed(2)} GH/s`
         else if (hashRate >= 1_000_000)
-            return `${(hashRate / 1_000_000).toFixed(2)} KH/s`
+            return `${(hashRate / 1_000_000).toFixed(2)} MH/s`
+        else if (hashRate >= 1_000)
+            return `${(hashRate / 1_000).toFixed(2)} KH/s`
         else
             return `${(hashRate).toFixed(2)} H/s`
     }
