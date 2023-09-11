@@ -7,47 +7,21 @@
         .label {
           font-weight: bold;
         }
-      }
 
-      &.wide-label {
-        .label {
-          width: 60%;
-        }
-
-        .value {
-          width: 40%;
-        }
-
-        @include media-breakpoint-up(lg) {
-          .label {
-            width: 78%;
-          }
-
-          .value {
-            width: 22%;
-          }
+        .label, .value {
+          width: 50%;
         }
       }
+    }
+  }
 
-      &.narrow-label {
-        .label {
-          width: 60%;
-        }
+  .tuna-stats {
+    .label {
+      font-weight: bold;
+    }
 
-        .value {
-          width: 40%;
-        }
-
-        @include media-breakpoint-up(lg) {
-          .label {
-            width: 40%;
-          }
-
-          .value {
-            width: 60%;
-          }
-        }
-      }
+    .label, .value {
+      width: 50%;
     }
   }
 }

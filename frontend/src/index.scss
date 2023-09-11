@@ -2,6 +2,10 @@
 @import "variables";
 @import url('https://fonts.googleapis.com/css?family=Roboto Mono');
 
+* {
+  font-size: 11pt;
+}
+
 body {
   margin: 0;
   font-family: 'Roboto Mono', monospace !important;

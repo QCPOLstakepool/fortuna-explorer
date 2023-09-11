@@ -3,11 +3,19 @@ import json
 from flask import Flask, jsonify, request
 from repository.block_repository import BlockRepository
 from repository.epoch_repository import EpochRepository
+from repository.tuna_repository import TunaRepository
 
 with open("config.json") as config_file:
     config = json.load(config_file)
 
 app = Flask(__name__)
+
+
+@app.route("/api/tuna")
+def get_tuna_stats():
+    tuna_repository = TunaRepository(config["sqlite"])
+
+    return jsonify(tuna_repository.get_stats().__dict__)
 
 
 @app.route("/api/epochs/current")
