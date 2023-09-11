@@ -11,10 +11,13 @@
   "LeadingZeroes": "Leading Zeroes",
   "Difficulty": "Difficulty",
   "Target": "Target",
-  "AverageBlockTimeEpoch": "Average Block Time (Epoch)",
+  "AverageBlockTime": "Average Block Time",
   "ValueBlocks": "{{blocks}} blocks",
   "RecentBlocks": "Recent Blocks",
   "Time": "Time",
   "EstimatedHashPower": "Estimated Hash Power",
-  "Miner": "Miner"
+  "Miner": "Miner",
+  "CirculatingSupply": "Circulating Supply",
+  "IssuanceRate": "Issuance Rate",
+  "MaximumSupply": "Maximum Supply"
 }
