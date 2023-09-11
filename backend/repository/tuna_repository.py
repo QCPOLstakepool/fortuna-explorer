@@ -54,4 +54,4 @@ class TunaRepository(SqliteRepository):
         rewards_100_blocks = rows[0][0]
         time_100_blocks = (rows[0][2] - rows[0][1]) / 1000
 
-        return rewards_100_blocks / (time_100_blocks)
+        return rewards_100_blocks / time_100_blocks
