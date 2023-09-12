@@ -2,9 +2,11 @@ import {useEffect, useState} from "react";
 import "./Home.scss";
 import { Block, CurrentEpoch, TunaStats } from "../backend";
 import {useTranslation} from "react-i18next";
+import {formatHash, getHumanDuration, getHumanHashRate, getHumanPosixDateTime} from "../utils";
 
 function Home(): JSX.Element {
     const {t} = useTranslation();
+
     const [tunaStats, setTunaStats] = useState<TunaStats | undefined>(undefined);
     const [currentEpoch, setCurrentEpoch] = useState<CurrentEpoch | undefined>(undefined);
     const [recentBlocks, setRecentBlocks] = useState<Block[] | undefined>(undefined);
@@ -43,14 +45,14 @@ function Home(): JSX.Element {
                             {getCurrentEpochStat(t('Progress'), `${(currentEpoch.progress * 100).toFixed(2)}%`)}
                             {getCurrentEpochStat(t('NextEpochIn'), <>
                                 <div className="p-0">{t('ValueBlocks', {blocks: currentEpoch.blocks_remaining})}</div>
-                                <div className="p-0">{`~${getHumanFormatTime(currentEpoch.blocks_remaining * currentEpoch.average_block_time)}`}</div>
+                                <div className="p-0">{`~${getHumanDuration(currentEpoch.blocks_remaining * currentEpoch.average_block_time)}`}</div>
                             </>)}
                         </div>
                         <div className="current-epoch-stats d-flex flex-column flex-grow-1">
                             {getCurrentEpochStat(t('LeadingZeroes'), currentEpoch.leading_zeroes)}
                             {getCurrentEpochStat(t('Target'), currentEpoch.target)}
-                            {getCurrentEpochStat(t('AverageBlockTime'), getHumanFormatTime(currentEpoch.average_block_time))}
-                            {getCurrentEpochStat(t('EstimatedHashPower'), getHumanFormatHashRate(currentEpoch.estimated_hash_rate))}
+                            {getCurrentEpochStat(t('AverageBlockTime'), getHumanDuration(currentEpoch.average_block_time))}
+                            {getCurrentEpochStat(t('EstimatedHashPower'), getHumanHashRate(currentEpoch.estimated_hash_rate))}
                         </div>
                     </div>
                 </div>
@@ -80,7 +82,7 @@ function Home(): JSX.Element {
                         <td className="d-none d-xxl-table-cell">{formatHash(block.hash, block.leading_zeroes)}</td>
                         <td><span className="d-none d-md-inline">{`${block.miner.substring(0, 6)}\u2026`}</span><span>{`${block.miner.substring(block.miner.length - 6)}`}</span></td>
                         <td>{(block.rewards / 100000000).toFixed(8)}</td>
-                        <td>{new Date(block.posix_time).toLocaleString()}</td>
+                        <td>{getHumanPosixDateTime(block.posix_time)}</td>
                     </tr>)
                 }
                 </tbody>
@@ -114,49 +116,6 @@ function Home(): JSX.Element {
             <div className="label">{label}</div>
             <div className="value">{value}</div>
         </div>
-    }
-
-    function formatHash(hash: string, leading_zero: number): JSX.Element {
-        return <>
-            0<sub>{leading_zero}</sub>{hash.substring(leading_zero)}
-        </>;
-    }
-
-    function getHumanFormatTime(seconds: number): string {
-        const weeks = Math.floor(seconds / (60 * 60 * 24 * 7));
-        seconds -= weeks * (60 * 60 * 24 * 7);
-        const days = Math.floor(seconds / (60 * 60 * 24));
-        seconds -= days * (60 * 60 * 24);
-        const hours = Math.floor(seconds / (60 * 60));
-        seconds -= hours * (60 * 60);
-        const minutes = Math.floor(seconds / 60);
-        seconds -= minutes * 60;
-
-        if (weeks > 0)
-            return `${weeks}w ${days}d ${hours}h`;
-        else if (days > 0)
-            return `${days}d ${hours}h ${minutes}m`;
-        else if (hours > 0)
-            return `${hours}h ${minutes}m ${seconds}s`;
-        else if (minutes > 0)
-            return `${minutes}m ${seconds}s`;
-        else
-            return `${seconds}s`;
-    }
-
-    function getHumanFormatHashRate(hashRate: number): string {
-        if (hashRate >= 1_000_000_000_000_000)
-            return `${(hashRate / 1_000_000_000_000_000).toFixed(2)} EH/s`
-        else if (hashRate >= 1_000_000_000_000)
-            return `${(hashRate / 1_000_000_000_000).toFixed(2)} TH/s`
-        else if (hashRate >= 1_000_000_000)
-            return `${(hashRate / 1_000_000_000).toFixed(2)} GH/s`
-        else if (hashRate >= 1_000_000)
-            return `${(hashRate / 1_000_000).toFixed(2)} MH/s`
-        else if (hashRate >= 1_000)
-            return `${(hashRate / 1_000).toFixed(2)} KH/s`
-        else
-            return `${(hashRate).toFixed(2)} H/s`
     }
 }
 

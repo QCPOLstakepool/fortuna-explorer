@@ -25,3 +25,11 @@ export interface TunaStats {
     circulating_supply: number;
     issuance_rate: number;
 }
+
+export interface Miner {
+    address: string;
+    total_blocks: number;
+    total_rewards: number;
+    first_block: number;
+    last_block: number;
+}

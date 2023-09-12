@@ -17,7 +17,14 @@
   "Time": "Time",
   "EstimatedHashPower": "Estimated Hash Power",
   "Miner": "Miner",
+  "Miners": "Miners",
+  "Address": "Address",
+  "TotalBlocks": "Total Blocks",
+  "TotalRewards": "Total Rewards",
   "CirculatingSupply": "Circulating Supply",
   "IssuanceRate": "Issuance Rate",
-  "MaximumSupply": "Maximum Supply"
+  "MaximumSupply": "Maximum Supply",
+  "Home": "Home",
+  "FirstBlock": "First Block",
+  "LastBlock": "Last Block"
 }

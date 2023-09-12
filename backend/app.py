@@ -1,6 +1,8 @@
 import json
 
 from flask import Flask, jsonify, request
+
+from repository.miner_repository import MinerRepository
 from repository.block_repository import BlockRepository
 from repository.epoch_repository import EpochRepository
 from repository.tuna_repository import TunaRepository
@@ -38,3 +40,18 @@ def get_blocks():
     block_repository = BlockRepository(config["sqlite"])
 
     return jsonify([fortuna_block.__dict__ for fortuna_block in block_repository.get_blocks(int(page), int(size), int(from_block), order == "desc")])
+
+
+@app.route("/api/miners")
+def get_miners():
+    order_by = request.args.get("order_by", "rewards")
+    order = request.args.get("order", "desc")
+    size = request.args.get("size", "1000")
+    page = request.args.get("page", "1")
+
+    if (order_by != "rewards" and order_by != "address") or (order != "desc" and order != "asc") or not size.isnumeric() or 0 >= int(size) > 1000 or not page.isnumeric() or 0 >= int(page):
+        return "Bad request", 400
+
+    miner_repository = MinerRepository(config["sqlite"])
+
+    return jsonify([fortuna_block.__dict__ for fortuna_block in miner_repository.get_miners(int(page), int(size), order_by, order == "desc")])
