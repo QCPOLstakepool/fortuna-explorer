@@ -36,12 +36,10 @@ class EpochRepository(SqliteRepository):
         upper_bound = epoch * 2016
         lower_bound = (epoch - 1) * 2016
 
-        print("Upper bound = {}, lower bound = {}".format(upper_bound, lower_bound))
-
         upper_bound_block, upper_bound_posix_time = self._get_upper_bound_block_posix_time(connection, upper_bound)
         lower_bound_block, lower_bound_posix_time = self._get_lower_bound_block_posix_time(connection, lower_bound)
 
-        if upper_bound_posix_time is None:
+        if lower_bound_posix_time is None or upper_bound_posix_time is None:
             upper_bound_posix_time = time.time() * 1000
 
         return int(((upper_bound_posix_time - lower_bound_posix_time) / 1000) / (upper_bound_block - lower_bound_block + 1))
