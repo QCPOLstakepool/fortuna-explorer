@@ -1,19 +1,29 @@
 import React from "react";
-import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
+import {BrowserRouter, Navigate, NavLink, Route, Routes} from "react-router-dom";
 import "./FortunaExplorer.scss";
 import Home from "../Home/Home";
+import Miners from "../Miners/Miners";
+import TopNavBar from "../TopNavBar/TopNavBar";
 
 function FortunaExplorer(): JSX.Element {
     return <BrowserRouter>
+        <TopNavBar/>
+
         <div className="FortunaExplorer">
-            <div className="d-flex justify-content-center align-items-center">
-                <div><img src="/assets/fortuna_circle.png" width={100} alt="Fortuna"/></div>
-                <div className="fortuna-title">Fortuna Explorer</div>
-            </div>
+            <NavLink className="link-no-decoration" to="/">
+                <div className="d-flex justify-content-center align-items-center">
+                    <div><img src="/assets/fortuna_circle.png" width={100} alt="Fortuna"/></div>
+                    <div className="fortuna-title">Fortuna Explorer</div>
+                </div>
+            </NavLink>
 
             <div id="content">
                 <Routes>
                     <Route path="/home" element={<Home/>}></Route>
+                    <Route path="/miners">
+                        <Route path="" element={<Miners/>}></Route>
+                        <Route path=":address" element={<div>Test 2</div>}></Route>
+                    </Route>
                     <Route path="*" element={<Navigate to="/home" replace />}></Route>
                 </Routes>
 
