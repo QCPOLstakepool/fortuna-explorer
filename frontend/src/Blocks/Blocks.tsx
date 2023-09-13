@@ -12,7 +12,7 @@ interface BlocksSearchParams {
 export default function Blocks(): JSX.Element {
     const {t} = useTranslation();
 
-    const searchParams: BlocksSearchParams = {page: 1, size: 50, order: "desc"};
+    const [searchParams, setSearchParams] = useState<BlocksSearchParams>({page: 1, size: 50, order: "desc"});
     const [blocks, setBlocks] = useState<Block[] | undefined>(undefined);
 
     useEffect(() => {
@@ -32,7 +32,7 @@ export default function Blocks(): JSX.Element {
                 <thead>
                     <tr>
                         <th className="d-none d-lg-table-cell">{t('Epoch')}</th>
-                        <th>{t('Block')}</th>
+                        <th className="clickable" onClick={() => onChangeOrder(searchParams.order === "asc" ? "desc" : "asc")}>{t('Block')}</th>
                         <th className="d-none d-md-table-cell">{t('LeadingZeroes')}</th>
                         <th className="d-none d-lg-table-cell">{t('Target')}</th>
                         <th className="d-none d-xxl-table-cell">{t('Hash')}</th>
@@ -45,7 +45,7 @@ export default function Blocks(): JSX.Element {
                 {
                     blocks.map((block: Block) => <tr key={block.number}>
                         <td className="d-none d-lg-table-cell">{block.epoch}</td>
-                        <td className="clickable" onClick={() => onChangeOrder(searchParams.order === "asc" ? "desc" : "asc")}>{block.number}</td>
+                        <td>{block.number}</td>
                         <td className="d-none d-md-table-cell">{block.leading_zeroes}</td>
                         <td className="d-none d-lg-table-cell">{block.target}</td>
                         <td className="d-none d-xxl-table-cell">{formatHash(block.hash, block.leading_zeroes)}</td>
@@ -57,7 +57,7 @@ export default function Blocks(): JSX.Element {
                 </tbody>
             </table>
 
-            <div key={searchParams.page} className="d-flex justify-content-lg-between mt-2">
+            <div className="d-flex justify-content-lg-between mt-2">
                 <div className="clickable" onClick={() => onChangePage(Math.max(1, searchParams.page - 1))}>&lt;&lt;&lt; {t('Previous')}</div>
                 <div className="d-flex">{getPages()}</div>
                 <div className="clickable" onClick={() => onChangePage(searchParams.page + 1)}>{t('Next')} &gt;&gt;&gt;</div>
@@ -79,20 +79,19 @@ export default function Blocks(): JSX.Element {
     }
 
     function onChangeOrder(order: "asc" | "desc"): void {
-        searchParams.page = 1;
-        searchParams.order = order;
+        setSearchParams({...searchParams, page: 1, order: order});
 
         search();
     }
 
     function onChangePage(page: number): void {
-        searchParams.page = page;
+        setSearchParams({...searchParams, page: page});
 
         search();
     }
 
     function search(): void {
-        fetch(`api/blocks?block=${(searchParams.order === "asc" ? blocks![blocks!.length - 1].number + 1 : blocks![0].number - 1)}&page=${searchParams.page}&size=${searchParams.size}&order=${searchParams.order}`).then(response => response.json()).then(response => {
+        fetch(`api/blocks?page=${searchParams.page}&size=${searchParams.size}&order=${searchParams.order}`).then(response => response.json()).then(response => {
             setBlocks(response);
         });
     }

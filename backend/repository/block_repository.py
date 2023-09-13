@@ -3,7 +3,7 @@ from model.block import Block
 
 
 class BlockRepository(SqliteRepository):
-    def get_blocks(self, page: int, size: int, from_block: int, desc: bool) -> list[Block]:
+    def get_blocks(self, page: int, size: int, desc: bool) -> list[Block]:
         connection = self._open_connection()
 
         try:
@@ -14,15 +14,13 @@ class BlockRepository(SqliteRepository):
             from
                 block
             where
-                block.hash is not null and
-                block.number {} ?
+                block.hash is not null 
             order by
                 block.number {} 
             limit ? 
             offset ?""".format(
-                "<=" if desc else ">=",
                 "desc" if desc else "asc"
-            ), [from_block, size + 1, (page - 1) * size])
+            ), [size + 1, (page - 1) * size])
 
             rows = cursor.fetchall()
 

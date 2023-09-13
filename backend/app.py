@@ -29,16 +29,15 @@ def get_current_epoch():
 @app.route("/api/blocks")
 def get_blocks():
     order = request.args.get("order", "desc")
-    from_block = request.args.get("block", "999999999" if order == "desc" else "0")
     size = request.args.get("size", "20")
     page = request.args.get("page", "1")
 
-    if (order != "desc" and order != "asc") or not size.isnumeric() or 0 >= int(size) > 100 or not page.isnumeric() or 0 >= int(page) or not from_block.isnumeric():
+    if (order != "desc" and order != "asc") or not size.isnumeric() or 0 >= int(size) > 100 or not page.isnumeric() or 0 >= int(page):
         return "Bad request", 400
 
     block_repository = BlockRepository(config["sqlite"])
 
-    return jsonify([fortuna_block.__dict__ for fortuna_block in block_repository.get_blocks(int(page), int(size), int(from_block), order == "desc")])
+    return jsonify([fortuna_block.__dict__ for fortuna_block in block_repository.get_blocks(int(page), int(size), order == "desc")])
 
 
 @app.route("/api/miners")
