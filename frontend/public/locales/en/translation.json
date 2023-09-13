@@ -26,5 +26,8 @@
   "MaximumSupply": "Maximum Supply",
   "Home": "Home",
   "FirstBlock": "First Block",
-  "LastBlock": "Last Block"
+  "LastBlock": "Last Block",
+  "Blocks": "Blocks",
+  "Previous": "Previous",
+  "Next": "Next"
 }

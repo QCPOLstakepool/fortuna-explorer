@@ -14,13 +14,15 @@ class BlockRepository(SqliteRepository):
             from
                 block
             where
-                hash is not null
+                block.hash is not null and
+                block.number {} ?
             order by
                 block.number {} 
             limit ? 
             offset ?""".format(
+                "<=" if desc else ">=",
                 "desc" if desc else "asc"
-            ), [size + 1, (page - 1) * size])
+            ), [from_block, size + 1, (page - 1) * size])
 
             rows = cursor.fetchall()
 
