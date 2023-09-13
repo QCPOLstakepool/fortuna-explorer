@@ -21,6 +21,12 @@ export default function Blocks(): JSX.Element {
         });
     }, []);
 
+    useEffect(() => {
+        fetch(`api/blocks?page=${searchParams.page}&size=${searchParams.size}&order=${searchParams.order}`).then(response => response.json()).then(response => {
+            setBlocks(response);
+        });
+    }, [searchParams]);
+
     if (blocks === undefined)
         return <>Loading</>;
 
@@ -80,19 +86,9 @@ export default function Blocks(): JSX.Element {
 
     function onChangeOrder(order: "asc" | "desc"): void {
         setSearchParams({...searchParams, page: 1, order: order});
-
-        search();
     }
 
     function onChangePage(page: number): void {
         setSearchParams({...searchParams, page: page});
-
-        search();
-    }
-
-    function search(): void {
-        fetch(`api/blocks?page=${searchParams.page}&size=${searchParams.size}&order=${searchParams.order}`).then(response => response.json()).then(response => {
-            setBlocks(response);
-        });
     }
 }
