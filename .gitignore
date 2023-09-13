@@ -6,4 +6,5 @@ backend/venv
 oura-sinks/config.json
 
 frontend/node_modules
+frontend/build
 /.idea
