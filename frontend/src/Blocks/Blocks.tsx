@@ -63,7 +63,7 @@ export default function Blocks(): JSX.Element {
                 </tbody>
             </table>
 
-            <div className="d-flex justify-content-lg-between mt-2">
+            <div className="d-flex justify-content-between mt-2">
                 <div className="clickable" onClick={() => onChangePage(Math.max(1, searchParams.page - 1))}>&lt;&lt;&lt; {t('Previous')}</div>
                 <div className="d-flex">{getPages()}</div>
                 <div className="clickable" onClick={() => onChangePage(searchParams.page + 1)}>{t('Next')} &gt;&gt;&gt;</div>
