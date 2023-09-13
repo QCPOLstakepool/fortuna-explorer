@@ -20,7 +20,7 @@ class BlockRepository(SqliteRepository):
             limit ? 
             offset ?""".format(
                 "desc" if desc else "asc"
-            ), [size + 1, (page - 1) * size])
+            ), [size, (page - 1) * size])
 
             rows = cursor.fetchall()
 
