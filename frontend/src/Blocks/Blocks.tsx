@@ -70,7 +70,7 @@ export default function Blocks(): JSX.Element {
 
         for (let i = Math.max(1, searchParams.page - 4); i <= searchParams.page + 4; i++) {
             if (i === searchParams.page)
-                elements.push(<div className="clickable mx-2">{i}</div>);
+                elements.push(<div className="clickable mx-2 fw-bold">{i}</div>);
             else
                 elements.push(<div className="clickable mx-2" onClick={() => onChangePage(i)}>{i}</div>);
         }
