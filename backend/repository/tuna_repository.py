@@ -60,6 +60,7 @@ class TunaRepository(SqliteRepository):
         return rewards_100_blocks / time_100_blocks
 
     def _get_price(self):
-        ada_tuna_pool = requests.get("https://analytics.spectrum.fi/cardano/pool/info/dd061b480daddd9a833d2477c791356be4e134a433e19df7eb18be10.TUNA_ADA_NFT?after=1658379570")
+        ada_tuna_pool_response = requests.get("https://analytics.spectrum.fi/cardano/pool/info/dd061b480daddd9a833d2477c791356be4e134a433e19df7eb18be10.TUNA_ADA_NFT?after=1658379570")
+        ada_tuna_pool_response_json = ada_tuna_pool_response.json()
 
-        return (ada_tuna_pool["lockedX"]["amount"] / ada_tuna_pool["lockedY"]["amount"]) * 100
+        return (ada_tuna_pool_response_json["lockedX"]["amount"] / ada_tuna_pool_response_json["lockedY"]["amount"]) * 100
