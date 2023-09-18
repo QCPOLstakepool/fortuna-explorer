@@ -35,6 +35,7 @@ function Home(): JSX.Element {
                         {getTunaStats(t('CirculatingSupply'), (tunaStats.circulating_supply / 100000000).toLocaleString(undefined, { minimumFractionDigits: 8, useGrouping: true }))}
                         {getTunaStats(t('IssuanceRate'), `${((tunaStats.issuance_rate * 60 * 60 * 24) / 100000000).toLocaleString(undefined, { minimumFractionDigits: 8, useGrouping: true })} / day`)}
                         {getTunaStats(t('MaximumSupply'), (21000000).toLocaleString(undefined, { minimumFractionDigits: 8, useGrouping: true }))}
+                        {getTunaStats(t('Price'), `${tunaStats.price.toLocaleString(undefined, { maximumFractionDigits: 6, minimumFractionDigits: 6, minimumIntegerDigits: 1 })} ₳`)}
                     </div>
                 </div>
                 <div className="col-12 col-xl-8 mt-3 mt-xl-0">

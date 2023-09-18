@@ -24,6 +24,7 @@ export interface CurrentEpoch {
 export interface TunaStats {
     circulating_supply: number;
     issuance_rate: number;
+    price: number;
 }
 
 export interface Miner {
